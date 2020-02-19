@@ -1,0 +1,15 @@
+name: Breaker
+main: com.asangarin.breaker.Breaker
+version: ${project.version}
+api-version: 1.13
+depend: [ProtocolLib]
+softdepend: [MMOItems, MMOCore, WorldGuard]
+commands:
+  breaker:
+    usage: /breaker
+    description: Master command for all Breaker commands.
+    permission: breaker.admin
+permissions:
+  breaker.admin:
+    description: Allows usage of all Breaker commands.
+    default: op
