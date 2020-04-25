@@ -4,7 +4,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-import com.asangarin.breaker.utility.BreakTrigger;
+import com.asangarin.breaker.api.BreakTrigger;
 
 public class CommandTrigger implements BreakTrigger {
 	String command;

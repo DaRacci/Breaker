@@ -1,4 +1,4 @@
-package com.asangarin.breaker.utility;
+package com.asangarin.breaker.api;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,9 +9,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.asangarin.breaker.Breaker;
 import com.asangarin.breaker.Settings;
-import com.asangarin.breaker.utility.BreakState;
-import com.asangarin.breaker.utility.BreakTrigger;
-import com.asangarin.breaker.utility.TriggerType;
+import com.asangarin.breaker.api.BreakState;
+import com.asangarin.breaker.api.BreakTrigger;
+import com.asangarin.breaker.api.TriggerType;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
@@ -38,6 +38,7 @@ public class BreakingBlock {
             
         	@Override
         	public void run() {
+        		//Send the block break animation depending on stage of breaking.
                 PacketContainer customAnimation = Breaker.plugin.protocol.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
                 customAnimation.getBlockPositionModifier().write(0, new BlockPosition(block.getX(), block.getY(), block.getZ()));
                 customAnimation.getIntegers().write(0, BreakingCore.getBlockEntityId(block));
@@ -54,6 +55,7 @@ public class BreakingBlock {
         			trigger.execute(breaker, block);
         		
         		if(stage > 10) {
+        			//One it reaches stage 10 break the block.
         			breaker.playSound(block.getLocation(), Breaker.plugin.nms.getBlockBreakSound(block), 1.0f, 1.0f);
         			Breaker.plugin.legacy.spawnBlockParticle(block);
         			Breaker.plugin.nms.breakBlock(breaker, block.getLocation());

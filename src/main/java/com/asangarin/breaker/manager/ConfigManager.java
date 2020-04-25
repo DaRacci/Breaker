@@ -8,10 +8,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.asangarin.breaker.Breaker;
+import com.asangarin.breaker.api.BreakState;
+import com.asangarin.breaker.api.BreakTrigger;
+import com.asangarin.breaker.api.TriggerType;
 import com.asangarin.breaker.core.BlockConfiguration;
-import com.asangarin.breaker.utility.BreakState;
-import com.asangarin.breaker.utility.BreakTrigger;
-import com.asangarin.breaker.utility.TriggerType;
 
 public class ConfigManager {
 	private List<BreakState> states = new ArrayList<>();
@@ -27,6 +27,7 @@ public class ConfigManager {
 	public void reload() {
 		Breaker.plugin.database.clear();
 		
+		//Read all files in the blockconfigs folder
 	    for (File file : new File(Breaker.plugin.getDataFolder(), "blockconfigs").listFiles()) {
 	        if (!file.isDirectory() && file.getName().substring(file.getName().lastIndexOf('.')).equalsIgnoreCase(".yml")) {
 	        	YamlConfiguration c = YamlConfiguration.loadConfiguration(file);

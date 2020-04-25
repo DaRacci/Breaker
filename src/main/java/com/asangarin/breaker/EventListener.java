@@ -12,8 +12,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffectType;
 
+import com.asangarin.breaker.api.BreakerSystem;
 import com.asangarin.breaker.gui.BaseInventory;
-import com.asangarin.breaker.utility.BreakerSystem;
 
 public class EventListener implements Listener {
 	@EventHandler
@@ -34,6 +34,7 @@ public class EventListener implements Listener {
 	
 	@EventHandler
 	public void blockDamage(BlockDamageEvent e) {
+		//Testing how different events treat block breaking.
 		Breaker.debug("BlockDamageEvent: " + Breaker.plugin.core.contains(e.getBlock()), 5);
 		
 		for(BreakerSystem s : Breaker.plugin.core.getActiveSystems())
@@ -62,6 +63,7 @@ public class EventListener implements Listener {
 
 	@EventHandler
 	public void c(BlockBreakEvent e) {
+		//more testing
 		Breaker.debug("BlockBreakEvent: " + Breaker.plugin.core.contains(e.getBlock()), 5);
 	}
 }

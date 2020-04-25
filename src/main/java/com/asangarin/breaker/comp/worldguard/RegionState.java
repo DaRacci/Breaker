@@ -2,8 +2,8 @@ package com.asangarin.breaker.comp.worldguard;
 
 import org.bukkit.configuration.ConfigurationSection;
 
+import com.asangarin.breaker.api.BreakState;
 import com.asangarin.breaker.core.BreakingBlock;
-import com.asangarin.breaker.utility.BreakState;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;

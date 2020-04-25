@@ -1,52 +1,52 @@
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\legacy\VersionWrapper.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\Settings.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\triggers\CommandTrigger.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\manager\StatesManager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\triggers\PotionTrigger.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\EnchantmentState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\utility\Manager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\manager\TriggerManager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_13_R2.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\WaterState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_15_R1.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\SneakingState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\mmocore\ClassState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\mmocore\ProfessionState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\core\BlockConfiguration.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\legacy\LegacyManager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_13_R1.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\mmocore\RestoreTrigger.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\utility\BreakerSystem.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_12_R1.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\FlyingState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\utility\BreakTrigger.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\manager\Database.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\command\BreakerCommand.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\gui\InventoryBrowser.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\TimeState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\Metrics.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\triggers\FireTrigger.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\utility\TriggerType.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\manager\ConfigManager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\PotionState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\mmoitems\MMOItemState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\system\MMOItemsSystem.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\ToolState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\manager\SystemManager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\Breaker.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\EventListener.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\gui\BaseInventory.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\WeatherState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\core\BreakingCore.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\legacy\DefaultManager.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_14_R1.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\core\BreakingBlock.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\mmocore\EXPTrigger.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\ExperienceState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\utility\NMSHandler.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\worldguard\RegionState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\command\BreakerTabComplete.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\system\MaterialSystem.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\comp\mmocore\ResourceState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\states\WorldState.java
-D:\Documents\Coding\Java\Minecraft Plugins\Breaker\src\main\java\com\asangarin\breaker\utility\BreakState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\command\BreakerCommand.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\api\BreakerSystem.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_12_R1.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\FlyingState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\ExperienceState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\gui\BaseInventory.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\system\MaterialSystem.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\legacy\LegacyManager.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\core\BreakingCore.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\ToolState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\triggers\PotionTrigger.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\api\TriggerType.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\legacy\VersionWrapper.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\EnchantmentState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\command\BreakerTabComplete.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\triggers\CommandTrigger.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\core\BreakingBlock.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\manager\SystemManager.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_13_R1.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\api\NMSHandler.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\mmocore\ProfessionState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\api\Manager.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_15_R1.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\api\BreakState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\WaterState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\mmocore\RestoreTrigger.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\mmocore\ResourceState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\manager\ConfigManager.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\Settings.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\SneakingState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\WeatherState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\EventListener.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\core\BlockConfiguration.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\manager\TriggerManager.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\manager\StatesManager.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\worldguard\RegionState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\PotionState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\Breaker.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\triggers\FireTrigger.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\mmoitems\MMOItemState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_13_R2.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\api\BreakTrigger.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\mmocore\ClassState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\TimeState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\comp\mmocore\EXPTrigger.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\system\MMOItemsSystem.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\gui\InventoryBrowser.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\Metrics.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\states\WorldState.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\nms\NMSHandler_1_14_R1.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\manager\Database.java
+C:\Users\Bremmer\git\breaker\src\main\java\com\asangarin\breaker\legacy\DefaultManager.java

@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.asangarin.breaker.Breaker;
-import com.asangarin.breaker.utility.BreakTrigger;
+import com.asangarin.breaker.api.BreakTrigger;
 
 public class PotionTrigger implements BreakTrigger {
 	PotionEffectType potion;

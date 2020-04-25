@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.asangarin.breaker.utility.BreakState;
-import com.asangarin.breaker.utility.BreakTrigger;
-import com.asangarin.breaker.utility.TriggerType;
+import com.asangarin.breaker.api.BreakState;
+import com.asangarin.breaker.api.BreakTrigger;
+import com.asangarin.breaker.api.TriggerType;
 
+/**
+ * The configuration of a block.
+ * These properties are documented on the wiki.
+ */
 public class BlockConfiguration {
 	private final String id;
 	private final int minHardness, maxHardness;

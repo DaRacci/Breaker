@@ -7,8 +7,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 import com.asangarin.breaker.Breaker;
+import com.asangarin.breaker.api.BreakState;
 import com.asangarin.breaker.core.BreakingBlock;
-import com.asangarin.breaker.utility.BreakState;
 
 public class EnchantmentState implements BreakState {
 	private Enchantment ench;

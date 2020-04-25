@@ -11,6 +11,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.asangarin.breaker.api.NMSHandler;
 import com.asangarin.breaker.command.BreakerCommand;
 import com.asangarin.breaker.command.BreakerTabComplete;
 import com.asangarin.breaker.core.BreakingCore;
@@ -22,7 +23,6 @@ import com.asangarin.breaker.manager.Database;
 import com.asangarin.breaker.manager.StatesManager;
 import com.asangarin.breaker.manager.SystemManager;
 import com.asangarin.breaker.manager.TriggerManager;
-import com.asangarin.breaker.utility.NMSHandler;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 
@@ -48,6 +48,7 @@ public class Breaker extends JavaPlugin
         plugin = this;
 		new Metrics(this);
 		
+		// Check if config.yml is already generated, if not, generate all the other default files.
 		if(!new File(this.getDataFolder(), "config.yml").exists()) {
 			File folder = new File(this.getDataFolder(), "/blockconfigs/");
 			if(!folder.exists()) folder.mkdirs();
@@ -76,6 +77,7 @@ public class Breaker extends JavaPlugin
         
         protocol = ProtocolLibrary.getProtocolManager();
 		try {
+			//Bind NMS handler to running version
 			nms = (NMSHandler) Class.forName("com.asangarin.breaker.nms.NMSHandler_" + Bukkit.getServer().getClass()
 					.getPackage().getName().replace(".", ",").split(",")[3].substring(1)).newInstance();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {

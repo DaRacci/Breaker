@@ -1,6 +1,8 @@
 package com.asangarin.breaker.manager;
 
 import com.asangarin.breaker.Breaker;
+import com.asangarin.breaker.api.BreakState;
+import com.asangarin.breaker.api.Manager;
 import com.asangarin.breaker.comp.mmocore.ClassState;
 import com.asangarin.breaker.comp.mmocore.ProfessionState;
 import com.asangarin.breaker.comp.mmocore.ResourceState;
@@ -16,8 +18,6 @@ import com.asangarin.breaker.states.ToolState;
 import com.asangarin.breaker.states.WaterState;
 import com.asangarin.breaker.states.WeatherState;
 import com.asangarin.breaker.states.WorldState;
-import com.asangarin.breaker.utility.BreakState;
-import com.asangarin.breaker.utility.Manager;
 
 public class StatesManager extends Manager<BreakState> {
 	@Override

@@ -1,4 +1,4 @@
-package com.asangarin.breaker.utility;
+package com.asangarin.breaker.api;
 
 import org.bukkit.block.Block;
 

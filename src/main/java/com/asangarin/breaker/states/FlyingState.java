@@ -3,8 +3,8 @@ package com.asangarin.breaker.states;
 import org.bukkit.configuration.ConfigurationSection;
 
 import com.asangarin.breaker.Breaker;
+import com.asangarin.breaker.api.BreakState;
 import com.asangarin.breaker.core.BreakingBlock;
-import com.asangarin.breaker.utility.BreakState;
 
 public class FlyingState implements BreakState {
 	private int value;

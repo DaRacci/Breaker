@@ -4,8 +4,8 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
+import com.asangarin.breaker.api.BreakState;
 import com.asangarin.breaker.core.BreakingBlock;
-import com.asangarin.breaker.utility.BreakState;
 
 import net.mmogroup.mmolib.api.item.NBTItem;
 

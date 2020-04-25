@@ -2,7 +2,7 @@ package com.asangarin.breaker.system;
 
 import org.bukkit.block.Block;
 
-import com.asangarin.breaker.utility.BreakerSystem;
+import com.asangarin.breaker.api.BreakerSystem;
 
 public class MaterialSystem implements BreakerSystem {
 	@Override

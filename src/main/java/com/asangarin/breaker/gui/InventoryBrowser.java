@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
+//TODO: Make ingame configuration gui
 public class InventoryBrowser extends BaseInventory {
 	public InventoryBrowser(Player player) {
 		super(player, 54, "Configuration Browser");

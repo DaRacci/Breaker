@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import com.asangarin.breaker.Breaker;
-import com.asangarin.breaker.utility.BreakTrigger;
-import com.asangarin.breaker.utility.BreakerSystem;
-import com.asangarin.breaker.utility.TriggerType;
+import com.asangarin.breaker.api.BreakTrigger;
+import com.asangarin.breaker.api.BreakerSystem;
+import com.asangarin.breaker.api.TriggerType;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
@@ -24,6 +24,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
+//TODO: Document this, you lazy bastard.
 public class BreakingCore {
 	HashMap<Integer, BreakingBlock> cachedBlocks = new HashMap<Integer, BreakingBlock>();
 	private List<Material> excludedMaterials = Breaker.plugin.nms.getExlcudedBlocks();
@@ -91,6 +92,9 @@ public class BreakingCore {
 		cachedBlocks.remove(getBlockEntityId(block)).cancel();
 	}
 	
+	/**
+	 * Generate a unique ID depending on the block position.
+	 */
 	public static int getBlockEntityId(Block block) {
 		return ((block.getX() & 0xFFF) << 20) | ((block.getZ() & 0xFFF) << 8) | (block.getY() & 0xFF);
 	}

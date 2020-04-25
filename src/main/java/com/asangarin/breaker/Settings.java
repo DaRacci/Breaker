@@ -2,6 +2,7 @@ package com.asangarin.breaker;
 
 import org.bukkit.configuration.ConfigurationSection;
 
+//TODO: add a few more settings
 public class Settings {
 	private boolean permaMF;
 	

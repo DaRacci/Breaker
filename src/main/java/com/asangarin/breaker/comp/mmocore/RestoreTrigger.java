@@ -5,7 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import com.asangarin.breaker.Breaker;
-import com.asangarin.breaker.utility.BreakTrigger;
+import com.asangarin.breaker.api.BreakTrigger;
 
 import net.Indyuce.mmocore.api.player.PlayerData;
 

@@ -1,10 +1,10 @@
 package com.asangarin.breaker.manager;
 
 import com.asangarin.breaker.Breaker;
+import com.asangarin.breaker.api.BreakerSystem;
+import com.asangarin.breaker.api.Manager;
 import com.asangarin.breaker.system.MMOItemsSystem;
 import com.asangarin.breaker.system.MaterialSystem;
-import com.asangarin.breaker.utility.BreakerSystem;
-import com.asangarin.breaker.utility.Manager;
 
 public class SystemManager extends Manager<BreakerSystem> {
 	@Override
