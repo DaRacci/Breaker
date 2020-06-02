@@ -92,7 +92,7 @@ public class Breaker extends JavaPlugin
 		else
 			legacy = new DefaultManager();
 		
-		for(String plugin : new String[]{"MMOItems", "MMOCore", "WorldGuard"})
+		for(String plugin : new String[]{"MMOItems", "MMOCore", "WorldGuard", "PlaceholderAPI"})
 			if(Bukkit.getPluginManager().isPluginEnabled(plugin))
 				compat.add(plugin);
 		

@@ -3,7 +3,7 @@ main: com.asangarin.breaker.Breaker
 version: ${project.version}
 api-version: 1.13
 depend: [ProtocolLib]
-softdepend: [MMOItems, MMOCore, WorldGuard]
+softdepend: [MMOItems, MMOCore, WorldGuard, PlaceholderAPI]
 commands:
   breaker:
     usage: /breaker
