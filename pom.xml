@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>eu.asangarin</groupId>
   <artifactId>Breaker</artifactId>
-  <version>1.1.4</version>
+  <version>1.2</version>
   <build>
     <finalName>Breaker</finalName>
     <resources>
