@@ -29,7 +29,7 @@ import com.comphenix.protocol.ProtocolManager;
 public class Breaker extends JavaPlugin
 {
 	public static Breaker plugin;
-	private List<String> compat = new ArrayList<String>();
+	private List<String> compat = new ArrayList<>();
 	
 	public Settings settings;
 	public ProtocolManager protocol;

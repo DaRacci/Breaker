@@ -8,18 +8,18 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.asangarin.breaker.api.NMSHandler;
 
-import net.minecraft.server.v1_15_R1.Block;
-import net.minecraft.server.v1_15_R1.BlockPosition;
-import net.minecraft.server.v1_15_R1.MinecraftKey;
-import net.minecraft.server.v1_15_R1.SoundEffect;
-import net.minecraft.server.v1_15_R1.SoundEffectType;
-import net.minecraft.server.v1_15_R1.World;
+import net.minecraft.server.v1_16_R1.Block;
+import net.minecraft.server.v1_16_R1.BlockPosition;
+import net.minecraft.server.v1_16_R1.MinecraftKey;
+import net.minecraft.server.v1_16_R1.SoundEffect;
+import net.minecraft.server.v1_16_R1.SoundEffectType;
+import net.minecraft.server.v1_16_R1.World;
 
 public class NMSHandler_1_16_R1 extends NMSHandler
 {
