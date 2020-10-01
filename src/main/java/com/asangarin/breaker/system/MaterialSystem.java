@@ -12,6 +12,6 @@ public class MaterialSystem implements BreakerSystem {
 
 	@Override
 	public int priority() {
-		return 5;
+		return 10;
 	}
 }

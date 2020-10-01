@@ -22,8 +22,7 @@ import net.minecraft.server.v1_12_R1.SoundEffectType;
 import net.minecraft.server.v1_12_R1.World;
 
 
-public class NMSHandler_1_12_R1 extends NMSHandler
-{
+public class NMSHandler_1_12_R1 extends NMSHandler {
 	public List<Material> excludedMaterials = new ArrayList<Material>(
 			Arrays.asList(Material.AIR, Material.GRASS, Material.END_ROD, Material.BARRIER, Material.TORCH, Material.getMaterial("REDSTONE_TORCH_ON"),
 			Material.getMaterial("REDSTONE_TORCH_OFF"), Material.getMaterial("LONG_GRASS"), Material.getMaterial("BEETROOT_BLOCK"), Material.WHEAT,
@@ -68,5 +67,10 @@ public class NMSHandler_1_12_R1 extends NMSHandler
 	@Override
 	public List<Material> getExlcudedBlocks() {
 		return excludedMaterials;
+	}
+
+	@Override
+	public String getSkullValue(org.bukkit.block.Block block) {
+		return "invalid";
 	}
 }

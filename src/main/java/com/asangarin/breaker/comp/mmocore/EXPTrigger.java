@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import com.asangarin.breaker.api.BreakTrigger;
 
 import net.Indyuce.mmocore.MMOCore;
+import net.Indyuce.mmocore.api.experience.EXPSource;
 import net.Indyuce.mmocore.api.player.PlayerData;
 
 public class EXPTrigger implements BreakTrigger {
@@ -27,8 +28,8 @@ public class EXPTrigger implements BreakTrigger {
 	@Override
 	public void execute(Player player, Block block) {
 		PlayerData data = PlayerData.get(player);
-		if(profess.equalsIgnoreCase("main")) data.giveExperience(experience, block.getLocation());
-		else data.getCollectionSkills().giveExperience(MMOCore.plugin.professionManager.get(profess), experience, block.getLocation());
+		if(profess.equalsIgnoreCase("main")) data.giveExperience(experience, block.getLocation(), EXPSource.SOURCE);
+		else data.getCollectionSkills().giveExperience(MMOCore.plugin.professionManager.get(profess), experience, block.getLocation(), EXPSource.SOURCE);
 	}
 
 	@Override

@@ -36,9 +36,11 @@ public class EventListener implements Listener {
 
 	@EventHandler
 	public void blockDamage(BlockDamageEvent e) {
+		if(Breaker.plugin.nms.getExlcudedBlocks().contains(e.getBlock().getType()))
+			return;
+
 		// Testing how different events treat block breaking.
 		Breaker.debug("BlockDamageEvent: " + Breaker.plugin.core.contains(e.getBlock()), 5);
-
 		for (BreakerSystem s : Breaker.plugin.core.getActiveSystems())
 			if (Breaker.plugin.database.has(s.getId(e.getBlock()))) {
 				e.getPlayer().addPotionEffect(Breaker.plugin.legacy.getPotionEffect(Integer.MAX_VALUE));
@@ -66,7 +68,7 @@ public class EventListener implements Listener {
 	}
 
 	@EventHandler
-	public void c(BlockBreakEvent e) {
+	public void blockBreakEvent(BlockBreakEvent e) {
 		// more testing
 		Breaker.debug("BlockBreakEvent: " + Breaker.plugin.core.contains(e.getBlock()), 5);
 	}

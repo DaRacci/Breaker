@@ -17,7 +17,7 @@ import com.asangarin.breaker.command.BreakerTabComplete;
 import com.asangarin.breaker.core.BreakingCore;
 import com.asangarin.breaker.legacy.DefaultManager;
 import com.asangarin.breaker.legacy.LegacyManager;
-import com.asangarin.breaker.legacy.VersionWrapper;
+import com.asangarin.breaker.legacy.VersionManager;
 import com.asangarin.breaker.manager.ConfigManager;
 import com.asangarin.breaker.manager.Database;
 import com.asangarin.breaker.manager.StatesManager;
@@ -38,7 +38,7 @@ public class Breaker extends JavaPlugin
 	public Database database;
 	public SystemManager system;
 	public NMSHandler nms;
-	public VersionWrapper legacy;
+	public VersionManager legacy;
 	
 	private ConfigManager config;
 	public BreakingCore core;
@@ -109,8 +109,7 @@ public class Breaker extends JavaPlugin
 
 	public boolean isLoaded(String p)
 	{ return compat.contains(p); }
-	public void onReload()
-	{
+	public void onReload() {
 		reloadConfig();
 		config.reload();
 	}

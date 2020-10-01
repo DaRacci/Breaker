@@ -19,4 +19,5 @@ public abstract class NMSHandler {
 	public abstract void breakBlock(Player player, Location loc);
 	public abstract Sound getBlockBreakSound(Block block);
 	public abstract List<Material> getExlcudedBlocks();
+	public abstract String getSkullValue(Block block);
 }

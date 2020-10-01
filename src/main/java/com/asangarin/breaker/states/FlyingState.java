@@ -1,6 +1,7 @@
 package com.asangarin.breaker.states;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.LivingEntity;
 
 import com.asangarin.breaker.Breaker;
 import com.asangarin.breaker.api.BreakState;
@@ -21,8 +22,9 @@ public class FlyingState implements BreakState {
 	
 	@Override
 	public boolean activeState(BreakingBlock block) {
-		Breaker.debug("Flying Test: " + !block.getBreaker().isOnGround(), 6);
-		if(!block.getBreaker().isOnGround()) return true;
+		boolean onGround = ((LivingEntity) block.getBreaker()).isOnGround();
+		Breaker.debug("Flying Test: " + !onGround, 6);
+		if(!onGround) return true;
 		return false;
 	}
 

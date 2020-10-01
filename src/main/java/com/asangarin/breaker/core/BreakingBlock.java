@@ -51,16 +51,13 @@ public class BreakingBlock {
 				}
                 
         		stage += 1;
-        		for(BreakTrigger trigger : blockConfig.getTriggers(TriggerType.MINE)) {
+        		for(BreakTrigger trigger : blockConfig.getTriggers(TriggerType.MINE))
         			trigger.execute(breaker, block);
-        		}
         		
-        		if(stage == 5) {
-        		    // fired when block is half-way broken
-        		    for(BreakTrigger trigger : blockConfig.getTriggers(TriggerType.HALFWAY)) {
-                        trigger.execute(breaker, block);
-                    }
-        		} else if(stage > 10) {
+        		if(stage == 5)
+            		for(BreakTrigger trigger : blockConfig.getTriggers(TriggerType.HALFWAY))
+            			trigger.execute(breaker, block);
+        		else if(stage > 10) {
         			//One it reaches stage 10 break the block.
         			breaker.playSound(block.getLocation(), Breaker.plugin.nms.getBlockBreakSound(block), 1.0f, 1.0f);
         			Breaker.plugin.legacy.spawnBlockParticle(block);

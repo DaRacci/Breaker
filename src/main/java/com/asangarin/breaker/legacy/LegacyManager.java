@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 @SuppressWarnings("deprecation")
-public class LegacyManager extends VersionWrapper {
+public class LegacyManager extends VersionManager {
 	@Override
 	public PotionEffect getPotionEffect(int amount) {
 		return new PotionEffect(PotionEffectType.SLOW_DIGGING, amount, -1, false, false);

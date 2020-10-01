@@ -28,12 +28,10 @@ public class CommandTrigger implements BreakTrigger {
 
 	@Override
 	public void execute(Player player, Block block) {
-		if (console) {
+		if (console)
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),
 					parsedCommand(player, block.getLocation(), command));
-		} else {
-		    player.performCommand(parsedCommand(player, block.getLocation(), command));
-		}
+		else player.performCommand(parsedCommand(player, block.getLocation(), command));
 	}
 
 	@Override

@@ -24,6 +24,7 @@ public class Database {
 	}
 	
 	public boolean has(String config) {
+		if(config.equals("invalid")) return false;
 		Breaker.debug("Checking if " + config.toLowerCase() + " exists in Database... (" + blockConfigs.containsKey(config.toLowerCase()) + ")", 3);
 		return blockConfigs.containsKey(config.toLowerCase());
 	}

@@ -5,7 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class DefaultManager extends VersionWrapper {
+public class DefaultManager extends VersionManager {
 	@Override
 	public PotionEffect getPotionEffect(int amount) {
 		return new PotionEffect(PotionEffectType.SLOW_DIGGING, amount, -1, false, false, false);

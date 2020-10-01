@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 import com.asangarin.breaker.api.NMSHandler;
 
+import net.minecraft.server.v1_13_R2.TileEntitySkull;
 import net.minecraft.server.v1_13_R2.Block;
 import net.minecraft.server.v1_13_R2.BlockPosition;
 import net.minecraft.server.v1_13_R2.MinecraftKey;
@@ -22,8 +23,7 @@ import net.minecraft.server.v1_13_R2.SoundEffectType;
 import net.minecraft.server.v1_13_R2.World;
 
 
-public class NMSHandler_1_13_R2 extends NMSHandler
-{
+public class NMSHandler_1_13_R2 extends NMSHandler {
 	public List<Material> excludedMaterials = new ArrayList<Material>(
 			Arrays.asList(Material.AIR, Material.GRASS, Material.TALL_GRASS, Material.END_ROD, Material.BARRIER, Material.BRAIN_CORAL,
 			Material.BRAIN_CORAL_FAN, Material.BUBBLE_CORAL, Material.BUBBLE_CORAL_FAN, Material.FIRE_CORAL, Material.FIRE_CORAL_FAN,
@@ -79,5 +79,14 @@ public class NMSHandler_1_13_R2 extends NMSHandler
 				excludedMaterials.add(m);
 		
 		return excludedMaterials;
+	}
+
+	@Override
+	public String getSkullValue(org.bukkit.block.Block block) {
+		TileEntitySkull skullTile = (TileEntitySkull) ((CraftWorld) block.getWorld()).getHandle()
+				.getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+		if (skullTile.getGameProfile() == null)
+			return "";
+		return skullTile.getGameProfile().getProperties().get("textures").iterator().next().getValue();
 	}
 }
