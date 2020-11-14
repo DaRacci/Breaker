@@ -8,19 +8,19 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.asangarin.breaker.api.NMSHandler;
 
-import net.minecraft.server.v1_16_R2.TileEntitySkull;
-import net.minecraft.server.v1_16_R2.Block;
-import net.minecraft.server.v1_16_R2.BlockPosition;
-import net.minecraft.server.v1_16_R2.MinecraftKey;
-import net.minecraft.server.v1_16_R2.SoundEffect;
-import net.minecraft.server.v1_16_R2.SoundEffectType;
-import net.minecraft.server.v1_16_R2.World;
+import net.minecraft.server.v1_16_R3.TileEntitySkull;
+import net.minecraft.server.v1_16_R3.Block;
+import net.minecraft.server.v1_16_R3.BlockPosition;
+import net.minecraft.server.v1_16_R3.MinecraftKey;
+import net.minecraft.server.v1_16_R3.SoundEffect;
+import net.minecraft.server.v1_16_R3.SoundEffectType;
+import net.minecraft.server.v1_16_R3.World;
 
 public class NMSHandler_1_16_R3 extends NMSHandler {
 	public List<Material> excludedMaterials = new ArrayList<Material>(
