@@ -4,7 +4,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 //TODO: add a few more settings
 public class Settings {
-	private boolean permaMF;
+	private final boolean permaMF;
 	
 	public Settings(ConfigurationSection config) {
 		permaMF = config.getBoolean("permanent-mining-fatigue");

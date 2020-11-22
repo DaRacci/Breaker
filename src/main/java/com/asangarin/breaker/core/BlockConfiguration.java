@@ -16,8 +16,8 @@ import com.asangarin.breaker.api.TriggerType;
 public class BlockConfiguration {
 	private final String id;
 	private final int minHardness, maxHardness;
-	private List<BreakState> states = new ArrayList<>();
-	private Map<TriggerType, List<BreakTrigger>> triggers = new HashMap<>();
+	private final List<BreakState> states = new ArrayList<>();
+	private final Map<TriggerType, List<BreakTrigger>> triggers = new HashMap<>();
 	
 	public BlockConfiguration(String i, int minH, int maxH) { 
 		for(TriggerType type : TriggerType.values())

@@ -26,8 +26,8 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 //TODO: Document this, you lazy bastard.
 public class BreakingCore {
-	HashMap<Integer, BreakingBlock> cachedBlocks = new HashMap<Integer, BreakingBlock>();
-	private List<Material> excludedMaterials = Breaker.plugin.nms.getExlcudedBlocks();
+	HashMap<Integer, BreakingBlock> cachedBlocks = new HashMap<>();
+	private final List<Material> excludedMaterials = Breaker.plugin.nms.getExlcudedBlocks();
 	private List<BreakerSystem> systems = new ArrayList<>();
 	
 	public BreakingCore() {

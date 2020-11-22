@@ -14,8 +14,8 @@ import com.asangarin.breaker.api.TriggerType;
 import com.asangarin.breaker.core.BlockConfiguration;
 
 public class ConfigManager {
-	private List<BreakState> states = new ArrayList<>();
-	private List<BreakTrigger> triggers = new ArrayList<>();
+	private final List<BreakState> states = new ArrayList<>();
+	private final List<BreakTrigger> triggers = new ArrayList<>();
 	
 	public ConfigManager() {
 		for(Class<? extends BreakState> breakStates : Breaker.plugin.states.registered())

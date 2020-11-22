@@ -11,14 +11,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 
@@ -49,11 +45,10 @@ public class Metrics {
 
     public static final int B_STATS_VERSION = 1;
     private static final String URL = "https://bStats.org/submitData/bukkit";
-    private boolean enabled;
+    private final boolean enabled;
     private static boolean logFailedRequests, logSentData, logResponseStatusText;
     private static String serverUUID;
     private final Plugin plugin;
-    private final List<CustomChart> charts = new ArrayList<>();
 
     public Metrics(Plugin plugin) {
         if (plugin == null) {
@@ -106,13 +101,6 @@ public class Metrics {
     public boolean isEnabled()
     { return enabled; }
 
-    public void addCustomChart(CustomChart chart) {
-        if (chart == null) {
-            throw new IllegalArgumentException("Chart cannot be null!");
-        }
-        charts.add(chart);
-    }
-
     private void startSubmitting() {
         final Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -125,26 +113,6 @@ public class Metrics {
                 Bukkit.getScheduler().runTask(plugin, () -> submitData());
             }
         }, 1000 * 60 * 5, 1000 * 60 * 30);
-    }
-
-    public JsonObject getPluginData() {
-        JsonObject data = new JsonObject();
-
-        String pluginName = plugin.getDescription().getName();
-        String pluginVersion = plugin.getDescription().getVersion();
-
-        data.addProperty("pluginName", pluginName);
-        data.addProperty("pluginVersion", pluginVersion);
-        JsonArray customCharts = new JsonArray();
-        for (CustomChart customChart : charts) {
-            JsonObject chart = customChart.getRequestJsonObject();
-            if (chart == null)
-                continue;
-            customCharts.add(chart);
-        }
-        data.add("customCharts", customCharts);
-
-        return data;
     }
 
     private JsonObject getServerData() {
@@ -211,7 +179,6 @@ public class Metrics {
                             } catch (ClassNotFoundException e) {
                                 if (logFailedRequests)
                                     this.plugin.getLogger().log(Level.SEVERE, "Encountered unexpected exception", e);
-                                continue;
                             }
                         }
                     } catch (NullPointerException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) { }
@@ -220,15 +187,12 @@ public class Metrics {
         }
 
         data.add("plugins", pluginData);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sendData(plugin, data);
-                } catch (Exception e) {
-                    if (logFailedRequests)
-                        plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + plugin.getName(), e);
-                }
+        new Thread(() -> {
+            try {
+                sendData(plugin, data);
+            } catch (Exception e) {
+                if (logFailedRequests)
+                    plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + plugin.getName(), e);
             }
         }).start();
     }
@@ -285,225 +249,4 @@ public class Metrics {
         gzip.close();
         return outputStream.toByteArray();
     }
-
-    public static abstract class CustomChart {
-        final String chartId;
-
-        CustomChart(String chartId) {
-            if (chartId == null || chartId.isEmpty()) {
-                throw new IllegalArgumentException("ChartId cannot be null or empty!");
-            }
-            this.chartId = chartId;
-        }
-
-        private JsonObject getRequestJsonObject() {
-            JsonObject chart = new JsonObject();
-            chart.addProperty("chartId", chartId);
-            try {
-                JsonObject data = getChartData();
-                if (data == null)
-                    return null;
-                chart.add("data", data);
-            } catch (Throwable t) {
-                if (logFailedRequests)
-                    Bukkit.getLogger().log(Level.WARNING, "Failed to get data for custom chart with id " + chartId, t);
-                return null;
-            }
-            return chart;
-        }
-        protected abstract JsonObject getChartData() throws Exception;
-    }
-
-    public static class SimplePie extends CustomChart {
-        private final Callable<String> callable;
-
-        public SimplePie(String chartId, Callable<String> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        protected JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            String value = callable.call();
-            if (value == null || value.isEmpty()) 
-                return null;
-            data.addProperty("value", value);
-            return data;
-        }
-    }
-
-    public static class AdvancedPie extends CustomChart {
-
-        private final Callable<Map<String, Integer>> callable;
-
-        public AdvancedPie(String chartId, Callable<Map<String, Integer>> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        protected JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            JsonObject values = new JsonObject();
-            Map<String, Integer> map = callable.call();
-            if (map == null || map.isEmpty())
-                return null;
-            boolean allSkipped = true;
-            for (Map.Entry<String, Integer> entry : map.entrySet()) {
-                if (entry.getValue() == 0)
-                    continue;
-                allSkipped = false;
-                values.addProperty(entry.getKey(), entry.getValue());
-            }
-            if (allSkipped)
-                return null;
-            data.add("values", values);
-            return data;
-        }
-    }
-
-    public static class DrilldownPie extends CustomChart {
-        private final Callable<Map<String, Map<String, Integer>>> callable;
-
-        public DrilldownPie(String chartId, Callable<Map<String, Map<String, Integer>>> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        public JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            JsonObject values = new JsonObject();
-            Map<String, Map<String, Integer>> map = callable.call();
-            if (map == null || map.isEmpty())
-                return null;
-            boolean reallyAllSkipped = true;
-            for (Map.Entry<String, Map<String, Integer>> entryValues : map.entrySet()) {
-                JsonObject value = new JsonObject();
-                boolean allSkipped = true;
-                for (Map.Entry<String, Integer> valueEntry : map.get(entryValues.getKey()).entrySet()) {
-                    value.addProperty(valueEntry.getKey(), valueEntry.getValue());
-                    allSkipped = false;
-                }
-                if (!allSkipped) {
-                    reallyAllSkipped = false;
-                    values.add(entryValues.getKey(), value);
-                }
-            }
-            if (reallyAllSkipped)
-                return null;
-            data.add("values", values);
-            return data;
-        }
-    }
-
-    public static class SingleLineChart extends CustomChart {
-        private final Callable<Integer> callable;
-
-        public SingleLineChart(String chartId, Callable<Integer> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        protected JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            int value = callable.call();
-            if (value == 0)
-                return null;
-            data.addProperty("value", value);
-            return data;
-        }
-
-    }
-
-    public static class MultiLineChart extends CustomChart {
-        private final Callable<Map<String, Integer>> callable;
-
-        public MultiLineChart(String chartId, Callable<Map<String, Integer>> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        protected JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            JsonObject values = new JsonObject();
-            Map<String, Integer> map = callable.call();
-            if (map == null || map.isEmpty())
-                return null;
-            boolean allSkipped = true;
-            for (Map.Entry<String, Integer> entry : map.entrySet()) {
-                if (entry.getValue() == 0)
-                    continue;
-                allSkipped = false;
-                values.addProperty(entry.getKey(), entry.getValue());
-            }
-            if (allSkipped)
-                return null;
-            data.add("values", values);
-            return data;
-        }
-
-    }
-
-    public static class SimpleBarChart extends CustomChart {
-        private final Callable<Map<String, Integer>> callable;
-
-        public SimpleBarChart(String chartId, Callable<Map<String, Integer>> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        protected JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            JsonObject values = new JsonObject();
-            Map<String, Integer> map = callable.call();
-            if (map == null || map.isEmpty())
-                return null;
-            for (Map.Entry<String, Integer> entry : map.entrySet()) {
-                JsonArray categoryValues = new JsonArray();
-                categoryValues.add(entry.getValue());
-                values.add(entry.getKey(), categoryValues);
-            }
-            data.add("values", values);
-            return data;
-        }
-
-    }
-
-    public static class AdvancedBarChart extends CustomChart {
-        private final Callable<Map<String, int[]>> callable;
-
-        public AdvancedBarChart(String chartId, Callable<Map<String, int[]>> callable) {
-            super(chartId);
-            this.callable = callable;
-        }
-
-        @Override
-        protected JsonObject getChartData() throws Exception {
-            JsonObject data = new JsonObject();
-            JsonObject values = new JsonObject();
-            Map<String, int[]> map = callable.call();
-            if (map == null || map.isEmpty())
-                return null;
-            boolean allSkipped = true;
-            for (Map.Entry<String, int[]> entry : map.entrySet()) {
-                if (entry.getValue().length == 0)
-                    continue;
-                allSkipped = false;
-                JsonArray categoryValues = new JsonArray();
-                for (int categoryValue : entry.getValue())
-                    categoryValues.add(categoryValue);
-                values.add(entry.getKey(), categoryValues);
-            }
-            if (allSkipped)
-                return null;
-            data.add("values", values);
-            return data;
-        }
-    }
-
 }

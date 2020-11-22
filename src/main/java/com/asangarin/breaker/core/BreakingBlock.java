@@ -17,9 +17,9 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
 
 public class BreakingBlock {
-	private Block block;
-	private Player breaker;
-	private BlockConfiguration blockConfig;
+	private final Block block;
+	private final Player breaker;
+	private final BlockConfiguration blockConfig;
 	
 	BukkitRunnable runnable;
 

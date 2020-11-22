@@ -59,12 +59,7 @@ public class EventListener implements Listener {
 			return;
 		if (!Settings.instance().permanentMiningFatigue())
 			return;
-		Bukkit.getScheduler().runTaskLater(Breaker.plugin, new Runnable() {
-			@Override
-			public void run() {
-				e.getPlayer().addPotionEffect(Breaker.plugin.legacy.getPotionEffect(Integer.MAX_VALUE));
-			}
-		}, 2);
+		Bukkit.getScheduler().runTaskLater(Breaker.plugin, () -> e.getPlayer().addPotionEffect(Breaker.plugin.legacy.getPotionEffect(Integer.MAX_VALUE)), 2);
 	}
 
 	@EventHandler

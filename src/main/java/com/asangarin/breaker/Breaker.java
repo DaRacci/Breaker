@@ -29,7 +29,7 @@ import com.comphenix.protocol.ProtocolManager;
 public class Breaker extends JavaPlugin
 {
 	public static Breaker plugin;
-	private List<String> compat = new ArrayList<>();
+	private final List<String> compat = new ArrayList<>();
 	
 	public Settings settings;
 	public ProtocolManager protocol;
@@ -51,22 +51,23 @@ public class Breaker extends JavaPlugin
 		// Check if config.yml is already generated, if not, generate all the other default files.
 		if(!new File(this.getDataFolder(), "config.yml").exists()) {
 			File folder = new File(this.getDataFolder(), "/blockconfigs/");
-			if(!folder.exists()) folder.mkdirs();
-			File sampleFile1 = new File(this.getDataFolder(), "/blockconfigs/STONE_BLOCKS.yml");
-			File sampleFile2 = new File(this.getDataFolder(), "/blockconfigs/WOODEN_BLOCKS.yml");
-			
-			if(sampleFile1.exists()) return;
-			if(sampleFile2.exists()) return;
-			InputStream input1 = getClass().getResourceAsStream("/default/blockconfigs/STONE_BLOCKS.yml");
-			InputStream input2 = getClass().getResourceAsStream("/default/blockconfigs/WOODEN_BLOCKS.yml");
+			if(!folder.exists()) {
+				File sampleFile1 = new File(this.getDataFolder(), "/blockconfigs/STONE_BLOCKS.yml");
+				File sampleFile2 = new File(this.getDataFolder(), "/blockconfigs/WOODEN_BLOCKS.yml");
 
-		    String outputFile1 = sampleFile1.getAbsolutePath();
-		    String outputFile2 = sampleFile2.getAbsolutePath();
-		    try {
-				Files.copy(input1, Paths.get(outputFile1));
-				Files.copy(input2, Paths.get(outputFile2));
-			} catch (IOException e1) {
-				e1.printStackTrace();
+				if(sampleFile1.exists()) return;
+				if(sampleFile2.exists()) return;
+				InputStream input1 = getClass().getResourceAsStream("/default/blockconfigs/STONE_BLOCKS.yml");
+				InputStream input2 = getClass().getResourceAsStream("/default/blockconfigs/WOODEN_BLOCKS.yml");
+
+				String outputFile1 = sampleFile1.getAbsolutePath();
+				String outputFile2 = sampleFile2.getAbsolutePath();
+				try {
+					Files.copy(input1, Paths.get(outputFile1));
+					Files.copy(input2, Paths.get(outputFile2));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
         this.saveDefaultConfig();
@@ -109,10 +110,13 @@ public class Breaker extends JavaPlugin
 
 	public boolean isLoaded(String p)
 	{ return compat.contains(p); }
+
 	public void onReload() {
 		reloadConfig();
 		config.reload();
+		log("Breaker reloaded!");
 	}
+
 	public static void log(String m)
 	{ plugin.getLogger().info(m); }
 	public static void warn(String m)
