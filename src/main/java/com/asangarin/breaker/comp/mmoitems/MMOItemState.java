@@ -1,5 +1,6 @@
 package com.asangarin.breaker.comp.mmoitems;
 
+import net.Indyuce.mmoitems.api.Type;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -35,10 +36,8 @@ public class MMOItemState implements BreakState {
 			NBTItem nbt = NBTItem.get(stack);
 			
 			if(nbt.hasType())
-				if(type.equals("any") || type.equals(nbt.getType().getName().toLowerCase()))
-					if(id.equals("any") || id.equals(nbt.getString("MMOITEMS_ITEM_ID").toLowerCase()))
-						if(statName.equals("NONE") || requiredstat <= nbt.getInteger("MMOITEMS_" + statName))
-							return true;
+				if(type.equals("any") || type.equals(Type.get(nbt.getType()).getName().toLowerCase()))
+					if(id.equals("any") || id.equals(nbt.getString("MMOITEMS_ITEM_ID").toLowerCase())) return statName.equals("NONE") || requiredstat <= nbt.getInteger("MMOITEMS_" + statName);
 		}
 		
 		return false;
