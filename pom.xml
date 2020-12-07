@@ -54,7 +54,8 @@
 			<groupId>net.Indyuce</groupId>
 			<artifactId>MMOItems</artifactId>
 			<version>6.5</version>
-			<scope>compile</scope>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/MMOItems.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>net.Indyuce</groupId>
