@@ -1,10 +1,10 @@
 package com.asangarin.breaker;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,8 @@ public class Breaker extends JavaPlugin
 	
 	private ConfigManager config;
 	public BreakingCore core;
-	
+
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	@Override
     public void onEnable() {
         plugin = this;
@@ -52,21 +53,29 @@ public class Breaker extends JavaPlugin
 		if(!new File(this.getDataFolder(), "config.yml").exists()) {
 			File folder = new File(this.getDataFolder(), "/blockconfigs/");
 			if(!folder.exists()) {
-				File sampleFile1 = new File(this.getDataFolder(), "/blockconfigs/STONE_BLOCKS.yml");
-				File sampleFile2 = new File(this.getDataFolder(), "/blockconfigs/WOODEN_BLOCKS.yml");
+				if(folder.mkdir()) {
+					File sampleFile1 = new File(this.getDataFolder(), "/blockconfigs/STONE_BLOCKS.yml");
+					File sampleFile2 = new File(this.getDataFolder(), "/blockconfigs/WOODEN_BLOCKS.yml");
+					if(sampleFile1.exists()) return;
+					if(sampleFile2.exists()) return;
+					InputStream input1 = getClass().getResourceAsStream("/default/blockconfigs/STONE_BLOCKS.yml");
+					InputStream input2 = getClass().getResourceAsStream("/default/blockconfigs/WOODEN_BLOCKS.yml");
 
-				if(sampleFile1.exists()) return;
-				if(sampleFile2.exists()) return;
-				InputStream input1 = getClass().getResourceAsStream("/default/blockconfigs/STONE_BLOCKS.yml");
-				InputStream input2 = getClass().getResourceAsStream("/default/blockconfigs/WOODEN_BLOCKS.yml");
+					try {
+						byte[] buffer1 = new byte[input1.available()];
+						input1.read(buffer1);
+						byte[] buffer2 = new byte[input2.available()];
+						input2.read(buffer2);
 
-				String outputFile1 = sampleFile1.getAbsolutePath();
-				String outputFile2 = sampleFile2.getAbsolutePath();
-				try {
-					Files.copy(input1, Paths.get(outputFile1));
-					Files.copy(input2, Paths.get(outputFile2));
-				} catch (IOException e1) {
-					e1.printStackTrace();
+						OutputStream output1 = new FileOutputStream(sampleFile1);
+						output1.write(buffer1);
+						OutputStream output2 = new FileOutputStream(sampleFile2);
+						output2.write(buffer2);
+					} catch(IOException io) {
+						io.printStackTrace();
+					}
+				} else {
+					warn("Couldn't create blockconfigs folder...!");
 				}
 			}
 		}
