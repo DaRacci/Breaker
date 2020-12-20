@@ -22,8 +22,7 @@ public class WeatherState implements BreakState {
 	@Override
 	public boolean activeState(BreakingBlock block) {
 		Breaker.debug("Rain Test: " + block.getBlock().getWorld().hasStorm(), 6);
-		if(block.getBlock().getWorld().hasStorm()) return true;
-		return false;
+		return block.getBlock().getWorld().hasStorm();
 	}
 
 	@Override

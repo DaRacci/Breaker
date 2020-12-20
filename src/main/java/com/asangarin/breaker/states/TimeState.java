@@ -26,12 +26,8 @@ public class TimeState implements BreakState {
 	@Override
 	public boolean activeState(BreakingBlock block) {
 		Breaker.debug("Time Test: " + block.getBlock().getWorld().getTime() + " | (max) " + maxTime + " (min) " + minTime, 6);
-		
-		if(block.getBlock().getWorld().getTime() > minTime
-			&& block.getBlock().getWorld().getTime() < maxTime)
-				return true;
-		
-		return false;
+
+		return block.getBlock().getWorld().getTime() > minTime && block.getBlock().getWorld().getTime() < maxTime;
 	}
 
 	@Override
