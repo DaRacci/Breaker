@@ -1,5 +1,6 @@
 package com.asangarin.breaker.comp.mmoitems;
 
+import io.lumine.mythic.lib.api.item.NBTItem;
 import net.Indyuce.mmoitems.api.Type;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -7,8 +8,6 @@ import org.bukkit.inventory.ItemStack;
 
 import com.asangarin.breaker.api.BreakState;
 import com.asangarin.breaker.core.BreakingBlock;
-
-import net.mmogroup.mmolib.api.item.NBTItem;
 
 public class MMOItemState implements BreakState {
 	private int requiredstat, value;
