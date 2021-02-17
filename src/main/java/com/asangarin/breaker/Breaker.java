@@ -48,7 +48,12 @@ public class Breaker extends JavaPlugin
     public void onEnable() {
         plugin = this;
 		new Metrics(this);
-		
+
+		// If default directory does not exist, create it.
+		File f = new File(plugin.getDataFolder() + "/");
+		if(!f.exists())
+			f.mkdir();
+
 		// Check if config.yml is already generated, if not, generate all the other default files.
 		if(!new File(this.getDataFolder(), "config.yml").exists()) {
 			File folder = new File(this.getDataFolder(), "/blockconfigs/");
