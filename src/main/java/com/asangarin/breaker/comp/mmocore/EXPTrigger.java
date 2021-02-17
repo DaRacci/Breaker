@@ -28,8 +28,8 @@ public class EXPTrigger implements BreakTrigger {
 	@Override
 	public void execute(Player player, Block block) {
 		PlayerData data = PlayerData.get(player);
-		if(profess.equalsIgnoreCase("main")) data.giveExperience(experience, block.getLocation(), EXPSource.SOURCE);
-		else data.getCollectionSkills().giveExperience(MMOCore.plugin.professionManager.get(profess), experience, block.getLocation(), EXPSource.SOURCE);
+		if(profess.equalsIgnoreCase("main")) data.giveExperience(experience, EXPSource.SOURCE , block.getLocation());
+		else data.getCollectionSkills().giveExperience(MMOCore.plugin.professionManager.get(profess), experience, EXPSource.SOURCE , block.getLocation());
 	}
 
 	@Override
