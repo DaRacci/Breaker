@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import com.asangarin.breaker.api.BreakState;
 import com.asangarin.breaker.core.BreakingBlock;
 
+
 public class MMOItemState implements BreakState {
 	private int requiredstat, value;
 	private String type, id;

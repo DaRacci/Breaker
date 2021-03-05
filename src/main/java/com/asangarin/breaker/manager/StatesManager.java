@@ -7,6 +7,7 @@ import com.asangarin.breaker.comp.mmocore.ClassState;
 import com.asangarin.breaker.comp.mmocore.ProfessionState;
 import com.asangarin.breaker.comp.mmocore.ResourceState;
 import com.asangarin.breaker.comp.mmoitems.MMOItemState;
+import com.asangarin.breaker.comp.mythiclib.MMOStatState;
 import com.asangarin.breaker.comp.worldguard.RegionState;
 import com.asangarin.breaker.states.EnchantmentState;
 import com.asangarin.breaker.states.ExperienceState;
@@ -32,6 +33,7 @@ public class StatesManager extends Manager<BreakState> {
 		register(WaterState.class);
 		register(WeatherState.class);
 		register(WorldState.class);
+		if(Breaker.plugin.isLoaded("MythicLib")) register(MMOStatState.class);
 		if(Breaker.plugin.isLoaded("MMOItems")) register(MMOItemState.class);
 		if(Breaker.plugin.isLoaded("MMOCore")) {
 			register(ClassState.class);

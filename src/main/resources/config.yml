@@ -2,6 +2,8 @@ settings:
   # Whether or not Mining Fatigue -1 should be permanently applied to players.
   # WARNING: Will prevent players from breaking blocks that aren't configured by Breaker!
   permanent-mining-fatigue: false
+  advanced:
+    use-mapped-reflection: true
 
 debug:
   enabled: false
