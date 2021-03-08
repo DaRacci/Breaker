@@ -8,9 +8,3 @@
 
 # Do not modify unless you know what you're doing.
 config-version: 1
-
-# - - Advanced Configuration - -
-# Please only proceed if you have knowledge about
-# how Minecraft servers and plugins work.
-advanced:
-    reflection:

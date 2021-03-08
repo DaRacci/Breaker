@@ -1,55 +1,69 @@
 package com.asangarin.packkit;
 
+import com.asangarin.packkit.nms.NMSHandler;
+import io.github.revxrsal.protocol.Protocol;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
-import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 
-@Getter
 public class Packkit implements Listener {
+	private final NMSHandler nms;
 	private final NetworkHandler handler;
 
 	public Packkit(NetworkHandler handler) {
 		this.handler = handler;
+		this.nms = Protocol.getNMSHandler();
 	}
 
 	@EventHandler
-	private void inject(PlayerJoinEvent event) {
+	private void onJoin(PlayerJoinEvent event) {
+		inject(event.getPlayer());
+	}
+
+	@EventHandler
+	private void onQuit(PlayerQuitEvent event) {
+		close(event.getPlayer());
+	}
+
+	public void inject(Player player) {
 		ChannelDuplexHandler duplexHandler = new ChannelDuplexHandler() {
 			@Override
 			public void channelRead(ChannelHandlerContext ctx, Object packet) throws Exception {
-				PacketStatus status = handler.readBefore(packet);
-				if(status == PacketStatus.DENY) return;
+				if (handler.readBefore(player, packet) == PacketStatus.DENY) return;
 				super.channelRead(ctx, packet);
-				handler.readAfter(packet);
+				handler.readAfter(player, packet);
 			}
 
 			@Override
 			public void write(ChannelHandlerContext ctx, Object packet, ChannelPromise promise) throws Exception {
-				PacketStatus status = handler.writeBefore(packet);
-				if(status == PacketStatus.DENY) return;
+				if (handler.writeBefore(player, packet) == PacketStatus.DENY) return;
 				super.write(ctx, packet, promise);
-				handler.writeAfter(packet);
+				handler.writeAfter(player, packet);
 			}
 		};
 
-		ChannelPipeline pipeline = ((CraftPlayer) event.getPlayer()).getHandle().playerConnection.networkManager.channel.pipeline();
-		pipeline.addBefore("packet_handler", event.getPlayer().getUniqueId().toString(), duplexHandler);
+		nms.getChannel(player).pipeline().addBefore("packet_handler", player.getUniqueId().toString(), duplexHandler);
 	}
 
-	@EventHandler
-	private void eject(PlayerQuitEvent event) {
-		Channel channel = ((CraftPlayer) event.getPlayer()).getHandle().playerConnection.networkManager.channel;
+	public void close(Player player) {
+		Channel channel = nms.getChannel(player);
 		channel.eventLoop().submit(() -> {
-			channel.pipeline().remove(event.getPlayer().getUniqueId().toString());
+			channel.pipeline().remove(player.getUniqueId().toString());
 			return null;
 		});
+	}
+
+	public void sendPacket(Player player, Object packet) {
+		nms.getChannel(player).pipeline().writeAndFlush(packet);
+	}
+
+	public NMSHandler getNMS() {
+		return nms;
 	}
 }

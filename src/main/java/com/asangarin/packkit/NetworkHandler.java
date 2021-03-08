@@ -1,8 +1,10 @@
 package com.asangarin.packkit;
 
+import org.bukkit.entity.Player;
+
 public interface NetworkHandler {
-	default void readAfter(Object packet) {};
-	default void writeAfter(Object packet) {};
-	default PacketStatus readBefore(Object packet) { return PacketStatus.ALLOW; };
-	default PacketStatus writeBefore(Object packet) { return PacketStatus.ALLOW; };
+	default void readAfter(Player player, Object packet) {};
+	default void writeAfter(Player player, Object packet) {};
+	default PacketStatus readBefore(Player player, Object packet) { return PacketStatus.ALLOW; };
+	default PacketStatus writeBefore(Player player, Object packet) { return PacketStatus.ALLOW; };
 }
