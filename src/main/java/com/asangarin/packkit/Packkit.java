@@ -18,20 +18,24 @@ public class Packkit implements Listener {
 
 	public Packkit(NetworkHandler handler) {
 		this.handler = handler;
+		// Make sure we use the proper NMS code for our current Minecraft version
 		this.nms = Protocol.getNMSHandler();
 	}
 
 	@EventHandler
 	private void onJoin(PlayerJoinEvent event) {
+		// Inject our custom DuplexHandler into the playerConnection on join
 		inject(event.getPlayer());
 	}
 
 	@EventHandler
 	private void onQuit(PlayerQuitEvent event) {
+		// Remove our custom DuplexHandler from the player when they quit
 		close(event.getPlayer());
 	}
 
 	public void inject(Player player) {
+		// Create a new DuplexHandler for listening to in/outgoing packets and be able to cancel them if needed.
 		ChannelDuplexHandler duplexHandler = new ChannelDuplexHandler() {
 			@Override
 			public void channelRead(ChannelHandlerContext ctx, Object packet) throws Exception {
@@ -48,17 +52,21 @@ public class Packkit implements Listener {
 			}
 		};
 
-		nms.getChannel(player).pipeline().addBefore("packet_handler", player.getUniqueId().toString(), duplexHandler);
+		// Inject our custom DuplexHandler into the player pipeline
+		nms.getChannel(player).pipeline().addBefore("packet_handler", "breaker_" + player.getUniqueId().toString(), duplexHandler);
 	}
 
 	public void close(Player player) {
+		/* Is this the right way to remove our DuplexHandler, or can we simply call:
+		 channel.pipeline().remove("breaker_" + player.getUniqueId().toString()); ??? */
 		Channel channel = nms.getChannel(player);
 		channel.eventLoop().submit(() -> {
-			channel.pipeline().remove(player.getUniqueId().toString());
+			channel.pipeline().remove("breaker_" + player.getUniqueId().toString());
 			return null;
 		});
 	}
 
+	// Send a custom packet to the player.
 	public void sendPacket(Player player, Object packet) {
 		nms.getChannel(player).pipeline().writeAndFlush(packet);
 	}

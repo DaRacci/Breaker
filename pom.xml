@@ -26,10 +26,6 @@
     </build>
     <repositories>
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
             <id>dmulloy2-repo</id>
             <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
         </repository>
@@ -49,14 +45,14 @@
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.Indyuce</groupId>
             <artifactId>MMOItems</artifactId>
-            <version>6.5.4</version>
+            <version>6.5.8</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -68,7 +64,7 @@
         <dependency>
             <groupId>io.lumine</groupId>
             <artifactId>MythicLib</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.19</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -76,6 +72,11 @@
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.0.2-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.lumine.xikage</groupId>
+            <artifactId>MythicMobs</artifactId>
+            <version>4.11.0</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
