@@ -16,7 +16,6 @@ public class Database {
 	public void reload() {
 		Breaker.log("Loading Breaker Database...");
 		blockConfigs.clear();
-		Breaker.get().reloadConfiguration();
 
 		File files = new File(Breaker.get().getDataFolder(), "blocks");
 		if (!files.isDirectory()) return;

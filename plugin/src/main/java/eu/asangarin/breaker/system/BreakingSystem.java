@@ -2,6 +2,7 @@ package eu.asangarin.breaker.system;
 
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
+import eu.asangarin.breaker.util.TriggerType;
 import eu.asangarin.packkit.Packkit;
 import io.lumine.mythic.utils.Schedulers;
 import org.bukkit.GameMode;
@@ -79,7 +80,12 @@ public class BreakingSystem implements Listener {
 						new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, -1, false, false, false)));
 			} else {
 				excludedLocations.add(info.getLocation());
-				Schedulers.sync().run(() -> Breaker.get().getPackkit().getNMS().breakBlock(info));
+				Schedulers.sync().run(() -> {
+					block.trigger(TriggerType.START, info);
+					block.trigger(TriggerType.BREAK, info);
+					block.trigger(TriggerType.STOP, info);
+					Breaker.get().getPackkit().getNMS().breakBlock(info);
+				});
 			}
 		}
 

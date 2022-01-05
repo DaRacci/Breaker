@@ -4,6 +4,7 @@ import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.api.BreakerState;
 import eu.asangarin.breaker.states.HeldItemState;
 import eu.asangarin.breaker.states.SneakingState;
+import eu.asangarin.breaker.states.UnbreakableState;
 import io.lumine.mythic.utils.config.LineConfig;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,6 +18,7 @@ public class BreakerStateRegistry {
 	public BreakerStateRegistry() {
 		register("helditem", HeldItemState.class);
 		register("sneaking", SneakingState.class);
+		register("unbreakable", UnbreakableState.class);
 	}
 
 	public void register(String key, Class<? extends BreakerState> state) {

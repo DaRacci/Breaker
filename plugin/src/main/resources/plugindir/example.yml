@@ -28,3 +28,5 @@ triggers: # Please refer to "Break Triggers" in the docs.
 # Possible triggers are: 'start', 'stop', 'break' or 'abort'
 # Possible functions are: 'skill', 'command', 'event'
 # More information about each trigger/function is available in the docs.
+
+# Quick Link to the docs: https://asangarin.github.io/Breaker-Docs/html/index.html

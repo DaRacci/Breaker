@@ -39,16 +39,11 @@ public class Breaker extends LuminePlugin {
 		handleDefaultFiles();
 
 		// Register Breaker Command
-		PluginCommand command = getCommand("breaker");
-		if (command != null) {
-			BreakerCommand breakerCmd = new BreakerCommand();
-			command.setExecutor(breakerCmd);
-			command.setTabCompleter(breakerCmd);
-		}
+		registerCommand("breaker", new BreakerCommand());
 
 		// Register Event Handlers
-		getServer().getPluginManager().registerEvents(packkit, this);
-		getServer().getPluginManager().registerEvents(breakingSystem, this);
+		registerListener(packkit);
+		registerListener(breakingSystem);
 
 		/* In the rare event that players are online before the plugins has enabled,
 		make sure that they are properly registered by Packkit. */
@@ -65,6 +60,7 @@ public class Breaker extends LuminePlugin {
 	}
 
 	public void reload() {
+		reloadConfiguration();
 		database.reload();
 		reloadConfig();
 		FileConfiguration config = getConfig();
