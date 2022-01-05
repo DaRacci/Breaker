@@ -26,7 +26,7 @@ public class BlockDigPacketInfo {
 	 * @return ^ */
 	public Location getLocation() {
 		Player p = player.get();
-		if(p == null) return null;
+		if (p == null) return null;
 		return new Location(p.getWorld(), x, y, z);
 	}
 
@@ -47,10 +47,6 @@ public class BlockDigPacketInfo {
 	 */
 	public int getEntityId() {
 		return ((x & 0xFFF) << 20) | ((z & 0xFFF) << 8) | (y & 0xFF);
-	}
-
-	public boolean hasReference() {
-		return player.get() != null;
 	}
 
 	public Block getBlock() {

@@ -36,9 +36,11 @@ public class ActiveBlock {
 
 	public void abort() {
 		task.close();
-		Breaker.get().getBreakingSystem().sendBreakAnimationPacket(info, 10);
-		block.trigger(TriggerType.ABORT, info);
-		block.trigger(TriggerType.STOP, info);
+		Schedulers.sync().run(() -> {
+			Breaker.get().getBreakingSystem().sendBreakAnimationPacket(info, 10);
+			block.trigger(TriggerType.ABORT, info);
+			block.trigger(TriggerType.STOP, info);
+		});
 	}
 
 	public void breakBlock() {

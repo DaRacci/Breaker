@@ -18,22 +18,28 @@ import java.util.function.Consumer;
 
 public class BreakerCommand implements CommandExecutor, TabCompleter {
 	private final String pluginPrefix = ChatColor.GOLD + "[" + ChatColor.GREEN + Breaker.get().getName() + ChatColor.GOLD + "] " + ChatColor.AQUA;
-	private final HashMap<String, Consumer<Player>> commands = new HashMap<>();
+	private final HashMap<String, Consumer<CommandSender>> commands = new HashMap<>();
 
 	public BreakerCommand() {
-		addCommand("reload", (p) -> {
+		addCommand("reload", (s) -> {
 			Breaker.get().reload();
-			p.sendMessage(pluginPrefix + "Plugin successfully reloaded!");
-			Breaker.log("Reloaded.");
+			s.sendMessage(pluginPrefix + "Plugin successfully reloaded!");
+			if (s instanceof Player) Breaker.log("Breaker successfully reloaded.");
 		});
-		addCommand("editor", (p) -> p.sendMessage(pluginPrefix + "This feature is not yet implemented!"));
+		addCommand("editor", (s) -> {
+			if (!(s instanceof Player)) {
+				s.sendMessage(pluginPrefix + ChatColor.RED + "This command can only be run by players.");
+				return;
+			}
+			s.sendMessage(pluginPrefix + "This feature is not yet implemented!");
+		});
 	}
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
-		if (args.length < 1 || !(sender instanceof Player)) return true;
+		if (args.length < 1) return true;
 
-		commands.getOrDefault(args[0], (p) -> p.sendMessage(pluginPrefix + ChatColor.RED + "Unknown command")).accept((Player) sender);
+		commands.getOrDefault(args[0], (s) -> s.sendMessage(pluginPrefix + ChatColor.RED + "Unknown subcommand")).accept(sender);
 		return true;
 	}
 
@@ -45,7 +51,7 @@ public class BreakerCommand implements CommandExecutor, TabCompleter {
 		return completions;
 	}
 
-	private void addCommand(String subcommand, Consumer<Player> function) {
+	private void addCommand(String subcommand, Consumer<CommandSender> function) {
 		commands.put(subcommand, function);
 	}
 }
