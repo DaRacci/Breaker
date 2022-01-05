@@ -1,0 +1,36 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# ██████  ██████  ███████  █████  ██   ██ ███████ ██████ 2#
+# ██   ██ ██   ██ ██      ██   ██ ██  ██  ██      ██   ██ #
+# ██████  ██████  █████   ███████ █████   █████   ██████  #
+# ██   ██ ██   ██ ██      ██   ██ ██  ██  ██      ██   ██ #
+# ██████  ██   ██ ███████ ██   ██ ██   ██ ███████ ██   ██ #
+# Configuration File # # # # # # # # # # by Aria Sangarin #
+
+# Do not modify unless you know what you're doing.
+config-version: 1
+
+# Rules allow you to modify when the Breaker system
+# should run. You can specify certain permissions,
+# worlds or regions that are needed for Breaker
+# to do the magic. For example, setting a world
+# whitelist, will make Breaker only work in those worlds.
+# - You will need to enable the rules that you want to use.
+breaker-rules:
+    permission:
+        enabled: false # The permission needed is `breaker.use`
+    world:
+        enabled: false
+        whitelist: true # The type of list to use =
+        # true: breaker will only work in the listed worlds
+        # false: breaker won't work in the listed worlds
+        list: # A list of worlds.
+            - "world"
+            - "world_nether"
+            - "world_the_end"
+    region:
+        enabled: false
+        whitelist: true # Works exactly like the world whitelist
+        list: # A list of worlds.
+            - "ACoolTestRegion"
+            - "ILoveAria"
+
