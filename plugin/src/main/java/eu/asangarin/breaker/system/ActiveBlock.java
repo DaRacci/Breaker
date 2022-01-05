@@ -21,7 +21,7 @@ public class ActiveBlock {
 		this.block = block;
 		this.breakTime = breakTime;
 
-		block.trigger(TriggerType.START, info);
+		Schedulers.sync().run(() -> block.trigger(TriggerType.START, info));
 		task = Schedulers.async().runRepeating(this::run, 0, 1);
 	}
 
