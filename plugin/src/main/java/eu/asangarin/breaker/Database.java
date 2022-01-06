@@ -19,9 +19,17 @@ public class Database {
 
 		File files = new File(Breaker.get().getDataFolder(), "blocks");
 		if (!files.isDirectory()) return;
+		loadFromDir(files);
+	}
+
+	private void loadFromDir(File files) {
 		//noinspection ConstantConditions
 		for (File file : files.listFiles()) {
-			if (file.isDirectory() || !file.getName().substring(file.getName().lastIndexOf('.')).equalsIgnoreCase(".yml")) continue;
+			if (file.isDirectory()) {
+				loadFromDir(file);
+				continue;
+			}
+			if (!file.getName().substring(file.getName().lastIndexOf('.')).equalsIgnoreCase(".yml")) continue;
 
 			BlockFile blockFile = new BlockFile("blocks/" + file.getName());
 			blockConfigs.put(Property.String(blockFile, "block").get().toLowerCase(), new DatabaseBlock(blockFile));
