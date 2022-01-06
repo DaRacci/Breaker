@@ -1,6 +1,8 @@
 package eu.asangarin.breaker;
 
 import eu.asangarin.breaker.cmd.BreakerCommand;
+import eu.asangarin.breaker.comp.StateLoader;
+import eu.asangarin.breaker.comp.VaultCompat;
 import eu.asangarin.breaker.network.BreakerNetworkHandler;
 import eu.asangarin.breaker.registry.BlockProviderRegistry;
 import eu.asangarin.breaker.registry.BreakerStateRegistry;
@@ -10,7 +12,6 @@ import eu.asangarin.packkit.Packkit;
 import io.lumine.mythic.utils.plugin.LuminePlugin;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -53,6 +54,12 @@ public class Breaker extends LuminePlugin {
 		// Cross-plugin compat
 		mmSupport = getServer().getPluginManager().isPluginEnabled("MythicMobs");
 		wgSupport = getServer().getPluginManager().isPluginEnabled("WorldGuard");
+
+		if (getServer().getPluginManager().isPluginEnabled("MMOCore")) StateLoader.loadMMOCore();
+		if (mmSupport) StateLoader.loadMythicMobs();
+		//if (getServer().getPluginManager().isPluginEnabled("TechTree")) StateLoader.loadTechTree();
+		if (getServer().getPluginManager().isPluginEnabled("Vault")) VaultCompat.setup();
+		if (wgSupport) StateLoader.loadWorldGuard();
 
 		// Initialize breaking system
 		breakingSystem.load();

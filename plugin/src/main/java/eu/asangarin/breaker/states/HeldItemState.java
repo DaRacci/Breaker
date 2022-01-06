@@ -7,7 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class HeldItemState extends BreakerState {
-	private Material material = Material.BEDROCK;
+	private Material material;
 
 	@Override
 	public boolean isConditionMet(Player breaker, Block block) {

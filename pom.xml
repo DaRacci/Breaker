@@ -39,10 +39,6 @@
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>dmulloy2-repo</id>
-            <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
-        </repository>
-        <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
