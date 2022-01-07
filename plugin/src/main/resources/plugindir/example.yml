@@ -2,28 +2,28 @@ block: IRON_BLOCK
 # The base block to modify. Please refer to "Block Providers"
 # in the docs for more information about what you can put here.
 
-breaking-time: # This value is in ticks!
-  max: 30 # The maximum amount of ticks it should take to break the block
-  min: 5 # The minimum amount of ticks it should take to break the block
-  base: 20 # This value is optional! If not specified, the base value will use the max breaking time.
-  # The base value is the time it takes to break the block if no states have activated.
+hardness: # These values are in ticks!
+    max: 30 # The maximum amount of ticks it should take to break the block
+    min: 5 # The minimum amount of ticks it should take to break the block
+    base: 20 # This value is optional! If not specified, the base value will use the max breaking time.
+    # The base value is the time it takes to break the block if no states have activated.
 
-states: # Please refer to "Break States" in the docs.
-- helditem{type=diamond_pickaxe;value=5} # Will subtract 5 ticks from the breaking time.
-# But only if the player is holding a Diamond Pickaxe. See docs for available states, etc.
-- sneaking{value=10} # Will subtract 3 ticks from the breaking time.
-# If both of the above states activate then the total breaking time in ticks will become 5, since
-# the base value is 20 and the helditem state subtracts 5 ticks and the sneaking state subtracts 10 ticks.
-# '20 - 5 - 10 = 5' (Note, the minimum is also set to 5, so it can't go lower than that)
-- helditem{type=iron_pickaxe} # Will use the default "value" of '1'
+states: # Please refer to "States" in the docs.
+    - helditem{type=diamond_pickaxe;value=5} # Will subtract 5 ticks from the breaking time.
+    # But only if the player is holding a Diamond Pickaxe. See docs for available states, etc.
+    - sneaking{value=10} # Will subtract 3 ticks from the breaking time.
+    # If both of the above states activate then the total breaking time in ticks will become 5, since
+    # the base value is 20 and the helditem state subtracts 5 ticks and the sneaking state subtracts 10 ticks.
+    # '20 - 5 - 10 = 5' (Note, the minimum is also set to 5, so it can't go lower than that)
+    - helditem{type=iron_pickaxe} # Will use the default "value" of '1'
 
-triggers: # Please refer to "Break Triggers" in the docs.
-- break{command=say I broke a block!}
-# This trigger will execute the command "say I broke a block!"
-# when the player finishes breaking the block.
-- start{skill=MyThiccSkill} # - - - Using a skill requires MythicMobs - - -
-# This trigger will execute a MythicMobs skill called "MyThiccSkill"
-# when the player starts breaking the block (if the skill can be found).
+triggers: # Please refer to "Triggers" in the docs.
+    - break{command=say I broke a block!}
+    # This trigger will execute the command "say I broke a block!"
+    # when the player finishes breaking the block.
+    - start{skill=MyThiccSkill} # - - - Using a skill requires MythicMobs - - -
+    # This trigger will execute a MythicMobs skill called "MyThiccSkill"
+    # when the player starts breaking the block (if the skill can be found).
 
 # Possible triggers are: 'start', 'stop', 'break' or 'abort'
 # Possible functions are: 'skill', 'command', 'event'
