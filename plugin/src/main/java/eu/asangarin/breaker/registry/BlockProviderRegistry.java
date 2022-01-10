@@ -3,6 +3,7 @@ package eu.asangarin.breaker.registry;
 import eu.asangarin.breaker.api.IBlockProvider;
 import eu.asangarin.breaker.providers.BlockTagProvider;
 import eu.asangarin.breaker.providers.MaterialTypeProvider;
+import eu.asangarin.breaker.providers.SkullValueProvider;
 import org.bukkit.block.Block;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class BlockProviderRegistry {
 	public BlockProviderRegistry() {
 		register(new MaterialTypeProvider());
 		register(new BlockTagProvider());
+		register(new SkullValueProvider());
 	}
 
 	public void register(IBlockProvider provider) {
@@ -22,7 +24,7 @@ public class BlockProviderRegistry {
 
 	public List<String> getKeysFromBlock(Block block) {
 		List<String> list = new ArrayList<>();
-		for(IBlockProvider provider : providers)
+		for (IBlockProvider provider : providers)
 			list.addAll(provider.getKeys(block));
 		return list;
 	}
