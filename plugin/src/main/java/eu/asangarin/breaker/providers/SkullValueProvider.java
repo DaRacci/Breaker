@@ -12,7 +12,7 @@ public class SkullValueProvider implements IBlockProvider {
 	@Override
 	public Collection<String> getKeys(Block block) {
 		if (block.getState() instanceof Skull)
-			return Collections.singletonList(MythicLib.plugin.getVersion().getWrapper().getSkullValue(block));
+			return Collections.singletonList("SKULL_" + MythicLib.plugin.getVersion().getWrapper().getSkullValue(block));
 		return Collections.emptyList();
 	}
 }
