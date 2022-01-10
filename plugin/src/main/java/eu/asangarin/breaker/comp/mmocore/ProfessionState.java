@@ -22,7 +22,7 @@ public class ProfessionState extends BreakerState {
 		prof = config.getString("name");
 		if (prof == null) return error("'mmoprof' is missing the name arg!");
 		if (!MMOCore.plugin.professionManager.has(prof)) return error("'mmoprof' is using an invalid profession!");
-		level = config.getFloat("level");
+		level = config.getInteger("level");
 		if (level == 0.0F) return error("'mmoprof' is missing the level arg (or it is 0)!");
 		return true;
 	}

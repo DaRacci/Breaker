@@ -1,6 +1,7 @@
 package eu.asangarin.breaker.comp;
 
 import eu.asangarin.breaker.Breaker;
+import eu.asangarin.breaker.api.BreakerAPI;
 import eu.asangarin.breaker.comp.vault.MoneyState;
 import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
@@ -12,18 +13,17 @@ public class VaultCompat {
 	private static Economy econ = null;
 
 	public static void setup() {
-		if (!setupEconomy() ) {
+		if (!setupEconomy()) {
 			Breaker.error("Vault support disabled due to no economy plugin found!");
 			return;
 		}
 
-		Breaker.get().getBreakerStates().register("money", MoneyState.class);
+		BreakerAPI.registerState("money", MoneyState.class);
 	}
 
 	private static boolean setupEconomy() {
 		RegisteredServiceProvider<Economy> rsp = Bukkit.getServicesManager().getRegistration(Economy.class);
-		if (rsp == null)
-			return false;
+		if (rsp == null) return false;
 		econ = rsp.getProvider();
 		return econ != null;
 	}

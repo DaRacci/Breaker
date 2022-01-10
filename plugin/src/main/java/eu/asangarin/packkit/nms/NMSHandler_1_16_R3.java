@@ -32,7 +32,8 @@ public class NMSHandler_1_16_R3 implements NMSHandler {
 
 	@Override
 	public BlockDigPacketInfo readBlockDigPacket(Player player, Object packet) {
-		if (!(packet instanceof PacketPlayInBlockDig packetDig)) return null;
+		if (!(packet instanceof PacketPlayInBlockDig)) return null;
+		PacketPlayInBlockDig packetDig = (PacketPlayInBlockDig) packet;
 		BlockPosition pos = packetDig.b();
 		return new BlockDigPacketInfo(player, pos.getX(), pos.getY(), pos.getZ(), packetDig.d().name());
 	}

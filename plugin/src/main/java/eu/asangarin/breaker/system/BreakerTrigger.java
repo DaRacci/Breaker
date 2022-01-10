@@ -56,15 +56,16 @@ public class BreakerTrigger {
 	}
 
 	public TriggerTrigger prepare() {
-		return switch (function) {
-			case COMMAND -> (player, block) -> {
+		switch (function) {
+			case COMMAND: return (player, block) -> {
 				String cmd = args.replace("%player%", player.getName());
 				if (cmd.startsWith("!")) Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.substring(1));
 				else Bukkit.dispatchCommand(player, cmd);
 			};
-			case SKILL -> (player, block) -> MythicMobsCompat.castSkill(player, args);
-			case EVENT -> (player, block) -> Bukkit.getPluginManager().callEvent(new BreakerTriggerEvent(player, block, args));
-		};
+			case SKILL: return (player, block) -> MythicMobsCompat.castSkill(player, block.getLocation(), args);
+			case EVENT: return (player, block) -> Bukkit.getPluginManager().callEvent(new BreakerTriggerEvent(player, block, args));
+			default: return (player, block) -> {};
+		}
 	}
 
 	public static Map<TriggerType, List<TriggerTrigger>> newTriggerMap() {

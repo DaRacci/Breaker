@@ -25,7 +25,7 @@ public class MythicVariableState extends BreakerState {
 	protected boolean setup(LineConfig config) {
 		key = config.getString("key");
 		if (key == null) return error("'mmvar' is missing the key arg!");
-		this.number = config.getInteger("number");
+		this.number = config.getInteger("value");
 		this.higherThan = config.getBoolean("higherthan");
 		return true;
 	}

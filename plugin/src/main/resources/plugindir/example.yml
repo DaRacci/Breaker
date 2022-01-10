@@ -3,10 +3,10 @@ block: IRON_BLOCK
 # in the docs for more information about what you can put here.
 
 hardness: # These values are in ticks!
-    max: 30 # The maximum amount of ticks it should take to break the block
-    min: 5 # The minimum amount of ticks it should take to break the block
     base: 20 # This value is optional! If not specified, the base value will use the max breaking time.
     # The base value is the time it takes to break the block if no states have activated.
+    min: 5 # The minimum amount of ticks it should take to break the block
+    max: 30 # The maximum amount of ticks it should take to break the block
 
 states: # Please refer to "States" in the docs.
     - helditem{type=diamond_pickaxe;value=5} # Will subtract 5 ticks from the breaking time.
@@ -21,7 +21,7 @@ triggers: # Please refer to "Triggers" in the docs.
     - break{command=say I broke a block!}
     # This trigger will execute the command "say I broke a block!"
     # when the player finishes breaking the block.
-    - start{skill=MyThiccSkill} # - - - Using a skill requires MythicMobs - - -
+    #- start{skill=MyThiccSkill} # - - - Using a skill requires MythicMobs - - -
     # This trigger will execute a MythicMobs skill called "MyThiccSkill"
     # when the player starts breaking the block (if the skill can be found).
 

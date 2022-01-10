@@ -19,11 +19,12 @@ public class ResourceState extends BreakerState {
 	}
 
 	private Function<PlayerData, Double> getResource() {
-		return switch (type) {
-			case MANA -> PlayerData::getMana;
-			case STAMINA -> PlayerData::getStamina;
-			case STELLIUM -> PlayerData::getStellium;
-		};
+		switch (type) {
+			case MANA: return PlayerData::getMana;
+			case STAMINA: return PlayerData::getStamina;
+			case STELLIUM: return PlayerData::getStellium;
+			default: return (playerData -> 0.0);
+		}
 	}
 
 	@Override

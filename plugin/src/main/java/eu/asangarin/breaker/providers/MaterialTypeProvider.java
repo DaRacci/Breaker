@@ -4,10 +4,10 @@ import eu.asangarin.breaker.api.IBlockProvider;
 import org.bukkit.block.Block;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 public class MaterialTypeProvider implements IBlockProvider {
 	public Collection<String> getKeys(Block block) {
-		return List.of(block.getType().toString().toLowerCase());
+		return Collections.singletonList(block.getType().toString().toLowerCase());
 	}
 }

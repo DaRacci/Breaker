@@ -14,6 +14,10 @@ import eu.asangarin.breaker.states.TimeState;
 import eu.asangarin.breaker.states.UnbreakableState;
 import eu.asangarin.breaker.states.WeatherState;
 import eu.asangarin.breaker.states.WorldState;
+import eu.asangarin.breaker.states.mythiclib.MMOStatState;
+import eu.asangarin.breaker.states.mythiclib.NBTBooleanState;
+import eu.asangarin.breaker.states.mythiclib.NBTStringState;
+import eu.asangarin.breaker.states.mythiclib.NBTValueState;
 import io.lumine.mythic.utils.config.LineConfig;
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,6 +41,12 @@ public class BreakerStateRegistry {
 		register("rain", WeatherState.class);
 		register("world", WorldState.class);
 		register("permission", PermissionState.class);
+
+		// MythicLib
+		register("mmostat", MMOStatState.class);
+		register("nbtstr", NBTStringState.class);
+		register("nbtbool", NBTBooleanState.class);
+		register("nbtval", NBTValueState.class);
 	}
 
 	public void register(String key, Class<? extends BreakerState> state) {

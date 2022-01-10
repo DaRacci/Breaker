@@ -19,12 +19,18 @@ public class PointState extends BreakerState {
 	}
 
 	private Function<PlayerData, Integer> getResource() {
-		return switch (type) {
-			case CLASS -> PlayerData::getClassPoints;
-			case SKILL -> PlayerData::getSkillPoints;
-			case ATTRIBUTE -> PlayerData::getAttributePoints;
-			case RECOLLECTION -> PlayerData::getAttributeReallocationPoints;
-		};
+		switch (type) {
+			case CLASS:
+				return PlayerData::getClassPoints;
+			case SKILL:
+				return PlayerData::getSkillPoints;
+			case ATTRIBUTE:
+				return PlayerData::getAttributePoints;
+			case RECOLLECTION:
+				return PlayerData::getAttributeReallocationPoints;
+			default:
+				return (playerData -> 0);
+		}
 	}
 
 	@Override

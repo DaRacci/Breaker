@@ -8,6 +8,7 @@ import eu.asangarin.breaker.registry.BlockProviderRegistry;
 import eu.asangarin.breaker.registry.BreakerStateRegistry;
 import eu.asangarin.breaker.system.BreakingSystem;
 import eu.asangarin.breaker.util.BreakerRules;
+import eu.asangarin.breaker.util.Metrics;
 import eu.asangarin.packkit.Packkit;
 import io.lumine.mythic.utils.plugin.LuminePlugin;
 import lombok.Getter;
@@ -38,6 +39,7 @@ public class Breaker extends LuminePlugin {
 		// Initialize singleton
 		plugin = this;
 		handleDefaultFiles();
+		new Metrics(5790);
 
 		// Register Breaker Command
 		registerCommand("breaker", new BreakerCommand());
@@ -57,7 +59,7 @@ public class Breaker extends LuminePlugin {
 
 		if (getServer().getPluginManager().isPluginEnabled("MMOCore")) StateLoader.loadMMOCore();
 		if (mmSupport) StateLoader.loadMythicMobs();
-		//if (getServer().getPluginManager().isPluginEnabled("TechTree")) StateLoader.loadTechTree();
+		if (getServer().getPluginManager().isPluginEnabled("TechTree")) StateLoader.loadTechTree();
 		if (getServer().getPluginManager().isPluginEnabled("Vault")) VaultCompat.setup();
 		if (wgSupport) StateLoader.loadWorldGuard();
 

@@ -70,7 +70,7 @@ public class BreakingSystem implements Listener {
 		if (info.getDigType() == BlockDigPacketInfo.DigType.START) {
 			Optional<DatabaseBlock> dbBlock = Breaker.get().getDatabase().fromBlock(info.getBlock());
 
-			if (dbBlock.isEmpty()) return true;
+			if (!dbBlock.isPresent()) return true;
 			DatabaseBlock block = dbBlock.get();
 			if (!block.canMine(info)) return true;
 			int breakTime = block.calculateBreakTime(info);

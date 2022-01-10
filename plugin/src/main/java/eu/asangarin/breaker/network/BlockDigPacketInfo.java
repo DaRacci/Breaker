@@ -72,12 +72,12 @@ public class BlockDigPacketInfo {
 	/* A little convenience method that gets a DigType object from the names
 	   of the NMS PlayerDigType enum */
 	private DigType fromName(String name) {
-		return switch (name.toUpperCase()) {
-			case "START_DESTROY_BLOCK" -> DigType.START;
-			case "STOP_DESTROY_BLOCK" -> DigType.STOP;
-			case "ABORT_DESTROY_BLOCK" -> DigType.ABORT;
-			default -> DigType.INVALID;
-		};
+		switch (name.toUpperCase()) {
+			case "START_DESTROY_BLOCK": return DigType.START;
+			case "STOP_DESTROY_BLOCK": return DigType.STOP;
+			case "ABORT_DESTROY_BLOCK": return DigType.ABORT;
+			default: return DigType.INVALID;
+		}
 	}
 
 	@Override

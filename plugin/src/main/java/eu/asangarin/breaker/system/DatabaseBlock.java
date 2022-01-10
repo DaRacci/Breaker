@@ -23,9 +23,9 @@ public class DatabaseBlock {
 	private final Map<TriggerType, List<BreakerTrigger.TriggerTrigger>> triggers = BreakerTrigger.newTriggerMap();
 
 	public DatabaseBlock(BlockFile file) {
-		this.max = Property.Int(file, "breaking-time.max", 40).get();
-		this.min = Property.Int(file, "breaking-time.min", 20).get();
-		this.base = Property.Int(file, "breaking-time.base", max).get();
+		this.max = Property.Int(file, "hardness.max", 40).get();
+		this.min = Property.Int(file, "hardness.min", 20).get();
+		this.base = Property.Int(file, "hardness.base", max).get();
 		for (String conf : Property.StringList(file, "states").get())
 			Breaker.get().getBreakerStates().fromConfig(file.get().substring(7), conf).ifPresent(states::add);
 		for (String conf : Property.StringList(file, "triggers").get())
