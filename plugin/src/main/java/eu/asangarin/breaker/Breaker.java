@@ -2,7 +2,7 @@ package eu.asangarin.breaker;
 
 import eu.asangarin.breaker.cmd.BreakerCommand;
 import eu.asangarin.breaker.comp.ExternalCompat;
-import eu.asangarin.breaker.comp.VaultCompat;
+import eu.asangarin.breaker.comp.vault.VaultCompat;
 import eu.asangarin.breaker.comp.mmoitems.MIBlockProvider;
 import eu.asangarin.breaker.network.BreakerNetworkHandler;
 import eu.asangarin.breaker.registry.BlockProviderRegistry;

@@ -13,6 +13,6 @@ public class MIBlockProvider implements IBlockProvider {
 	@Override
 	public Collection<String> getKeys(Block block) {
 		Optional<CustomBlock> cBlock = MMOItems.plugin.getCustomBlocks().getFromBlock(block.getBlockData());
-		return Collections.singletonList("MMOITEMS_" + (cBlock.map(customBlock -> String.valueOf(customBlock.getId())).orElse("INVALID")));
+		return cBlock.map(customBlock -> Collections.singletonList("MMOITEMS_" + customBlock.getId())).orElse(Collections.emptyList());
 	}
 }

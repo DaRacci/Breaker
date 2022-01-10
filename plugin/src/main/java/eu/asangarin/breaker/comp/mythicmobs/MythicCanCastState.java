@@ -1,7 +1,6 @@
 package eu.asangarin.breaker.comp.mythicmobs;
 
 import eu.asangarin.breaker.api.BreakerState;
-import eu.asangarin.breaker.comp.MythicMobsCompat;
 import io.lumine.mythic.utils.config.LineConfig;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.skills.Skill;

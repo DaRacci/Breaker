@@ -1,7 +1,6 @@
 package eu.asangarin.breaker.comp.vault;
 
 import eu.asangarin.breaker.api.BreakerState;
-import eu.asangarin.breaker.comp.VaultCompat;
 import io.lumine.mythic.utils.config.LineConfig;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

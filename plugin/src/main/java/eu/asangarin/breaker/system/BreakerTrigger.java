@@ -2,7 +2,7 @@ package eu.asangarin.breaker.system;
 
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.api.BreakerTriggerEvent;
-import eu.asangarin.breaker.comp.MythicMobsCompat;
+import eu.asangarin.breaker.comp.mythicmobs.MythicMobsCompat;
 import eu.asangarin.breaker.util.TriggerFunction;
 import eu.asangarin.breaker.util.TriggerType;
 import io.lumine.mythic.utils.config.LineConfig;

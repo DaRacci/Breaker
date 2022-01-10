@@ -1,4 +1,4 @@
-package eu.asangarin.breaker.comp;
+package eu.asangarin.breaker.comp.worldguard;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;

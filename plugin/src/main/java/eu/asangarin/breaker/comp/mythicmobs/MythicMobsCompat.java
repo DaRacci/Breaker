@@ -1,4 +1,4 @@
-package eu.asangarin.breaker.comp;
+package eu.asangarin.breaker.comp.mythicmobs;
 
 import eu.asangarin.breaker.Breaker;
 import io.lumine.xikage.mythicmobs.MythicMobs;

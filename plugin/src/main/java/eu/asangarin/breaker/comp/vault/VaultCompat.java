@@ -1,4 +1,4 @@
-package eu.asangarin.breaker.comp;
+package eu.asangarin.breaker.comp.vault;
 
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.api.BreakerAPI;

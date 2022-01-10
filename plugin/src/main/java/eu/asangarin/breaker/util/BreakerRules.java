@@ -1,7 +1,7 @@
 package eu.asangarin.breaker.util;
 
 import eu.asangarin.breaker.Breaker;
-import eu.asangarin.breaker.comp.WorldGuardCompat;
+import eu.asangarin.breaker.comp.worldguard.WorldGuardCompat;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
