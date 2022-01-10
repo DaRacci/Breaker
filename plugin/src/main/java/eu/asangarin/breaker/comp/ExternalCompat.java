@@ -12,7 +12,7 @@ import eu.asangarin.breaker.comp.mythicmobs.MythicVariableState;
 import eu.asangarin.breaker.comp.techtree.TechEntryState;
 import eu.asangarin.breaker.comp.worldguard.RegionState;
 
-public class StateLoader {
+public class ExternalCompat {
 	public static void loadMMOCore() {
 		BreakerAPI.registerState("mmoexp", MMOExperienceState.class);
 		BreakerAPI.registerState("mmoattribute", AttributeState.class);

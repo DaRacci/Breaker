@@ -1,8 +1,9 @@
 package eu.asangarin.breaker;
 
 import eu.asangarin.breaker.cmd.BreakerCommand;
-import eu.asangarin.breaker.comp.StateLoader;
+import eu.asangarin.breaker.comp.ExternalCompat;
 import eu.asangarin.breaker.comp.VaultCompat;
+import eu.asangarin.breaker.comp.mmoitems.MIBlockProvider;
 import eu.asangarin.breaker.network.BreakerNetworkHandler;
 import eu.asangarin.breaker.registry.BlockProviderRegistry;
 import eu.asangarin.breaker.registry.BreakerStateRegistry;
@@ -57,11 +58,12 @@ public class Breaker extends LuminePlugin {
 		mmSupport = getServer().getPluginManager().isPluginEnabled("MythicMobs");
 		wgSupport = getServer().getPluginManager().isPluginEnabled("WorldGuard");
 
-		if (getServer().getPluginManager().isPluginEnabled("MMOCore")) StateLoader.loadMMOCore();
-		if (mmSupport) StateLoader.loadMythicMobs();
-		if (getServer().getPluginManager().isPluginEnabled("TechTree")) StateLoader.loadTechTree();
+		if (getServer().getPluginManager().isPluginEnabled("MMOCore")) ExternalCompat.loadMMOCore();
+		if (mmSupport) ExternalCompat.loadMythicMobs();
+		if (getServer().getPluginManager().isPluginEnabled("TechTree")) ExternalCompat.loadTechTree();
 		if (getServer().getPluginManager().isPluginEnabled("Vault")) VaultCompat.setup();
-		if (wgSupport) StateLoader.loadWorldGuard();
+		if (wgSupport) ExternalCompat.loadWorldGuard();
+		if (getServer().getPluginManager().isPluginEnabled("MMOItems")) blockProviders.register(new MIBlockProvider());
 
 		// Initialize breaking system
 		breakingSystem.load();
