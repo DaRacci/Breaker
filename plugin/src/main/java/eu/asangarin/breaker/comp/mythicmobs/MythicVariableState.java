@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class MythicVariableState extends BreakerState {
 	private String key;
-	private int number;
+	private int varValue;
 	private boolean higherThan;
 
 	@Override
@@ -18,14 +18,14 @@ public class MythicVariableState extends BreakerState {
 		AbstractPlayer player = BukkitAdapter.adapt(breaker);
 		int value = MythicMobs.inst().getPlayerManager().getPlayerData(player).getVariables().getInt(key);
 
-		return higherThan ? value >= number : value == number;
+		return higherThan ? value >= varValue : value == varValue;
 	}
 
 	@Override
 	protected boolean setup(LineConfig config) {
 		key = config.getString("key");
 		if (key == null) return error("'mmvar' is missing the key arg!");
-		this.number = config.getInteger("value");
+		this.varValue = config.getInteger("varval");
 		this.higherThan = config.getBoolean("higherthan");
 		return true;
 	}

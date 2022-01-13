@@ -8,20 +8,20 @@ import org.bukkit.entity.Player;
 
 public class NBTStringState extends BreakerState {
 	private String key;
-	private String value;
+	private String nbtValue;
 
 	@Override
 	public boolean isConditionMet(Player breaker, Block block) {
 		NBTItem nbt = NBTItem.get(breaker.getInventory().getItemInMainHand());
-		return nbt.getString(key).equals(value);
+		return nbt.getString(key).equals(nbtValue);
 	}
 
 	@Override
 	protected boolean setup(LineConfig config) {
 		key = config.getString("key");
 		if (key == null) return error("'nbtstr' is missing the key arg!");
-		value = config.getString("value");
-		if (value == null) return error("'nbtstr' is missing the value arg!");
+		nbtValue = config.getString("nbtval");
+		if (nbtValue == null) return error("'nbtstr' is missing the value arg!");
 		return true;
 	}
 }
