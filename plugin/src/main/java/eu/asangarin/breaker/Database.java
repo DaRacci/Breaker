@@ -39,7 +39,7 @@ public class Database {
 	public Optional<DatabaseBlock> fromBlock(Block block) {
 		List<String> keys = Breaker.get().getBlockProviders().getKeysFromBlock(block);
 		for (String key : keys)
-			if (blockConfigs.containsKey(key)) return Optional.of(blockConfigs.get(key));
+			if (blockConfigs.containsKey(key.toLowerCase())) return Optional.of(blockConfigs.get(key.toLowerCase()));
 		return Optional.empty();
 	}
 

@@ -73,6 +73,7 @@ public class BreakingSystem implements Listener {
 			if (!dbBlock.isPresent()) return true;
 			DatabaseBlock block = dbBlock.get();
 			if (!block.canMine(info)) return true;
+
 			int breakTime = block.calculateBreakTime(info);
 			if (breakTime > 0) {
 				activeBlocks.put(player.getUniqueId(), new ActiveBlock(info, block, breakTime));
