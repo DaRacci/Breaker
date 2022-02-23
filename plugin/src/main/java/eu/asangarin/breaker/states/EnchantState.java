@@ -25,6 +25,7 @@ public class EnchantState extends BreakerState {
 	protected boolean setup(LineConfig config) {
 		String type = config.getString("type");
 		if (type == null) return error("'enchant' is missing the type arg!");
+		if (!type.contains(":")) type = "minecraft:" + type;
 		NamespacedKey key = NamespacedKey.fromString(type);
 		if (key == null) return error("'enchant' type is invalid! couldn't read key: " + type);
 		this.type = Enchantment.getByKey(key);
