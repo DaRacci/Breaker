@@ -25,11 +25,18 @@ public class EnchantState extends BreakerState {
 	protected boolean setup(LineConfig config) {
 		String type = config.getString("type");
 		if (type == null) return error("'enchant' is missing the type arg!");
-		if (!type.contains(":")) type = "minecraft:" + type;
-		NamespacedKey key = NamespacedKey.fromString(type);
+		NamespacedKey key = getFromString(type);
 		if (key == null) return error("'enchant' type is invalid! couldn't read key: " + type);
 		this.type = Enchantment.getByKey(key);
 		this.level = config.getInteger("level", -1);
 		return true;
+	}
+
+	@SuppressWarnings("deprecation")
+	private NamespacedKey getFromString(String type) {
+		if (type.contains(":")) {
+			String[] split = type.split(":");
+			return new NamespacedKey(split[0], split[1]);
+		} else return NamespacedKey.minecraft(type);
 	}
 }
