@@ -15,6 +15,7 @@ public class EnchantState extends BreakerState {
 
 	@Override
 	public boolean isConditionMet(Player breaker, Block block) {
+		if (type == null) return false;
 		Map<Enchantment, Integer> enchants = breaker.getInventory().getItemInMainHand().getEnchantments();
 		boolean flag = enchants.containsKey(type);
 		if (flag && level != -1) return enchants.get(type) >= level;
@@ -34,6 +35,7 @@ public class EnchantState extends BreakerState {
 
 	@SuppressWarnings("deprecation")
 	private NamespacedKey getFromString(String type) {
+		type = type.toLowerCase();
 		if (type.contains(":")) {
 			String[] split = type.split(":");
 			return new NamespacedKey(split[0], split[1]);
