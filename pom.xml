@@ -9,12 +9,13 @@
         <module>plugin</module>
         <module>v1_17</module>
         <module>v1_18</module>
+        <module>v1_18_2</module>
         <module>dist</module>
     </modules>
 	<name>Breaker</name>
 	
     <properties>
-        <revision>2.2.4</revision>
+        <revision>2.3</revision>
         <downloadSources>false</downloadSources>
         <downloadJavadocs>false</downloadJavadocs>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

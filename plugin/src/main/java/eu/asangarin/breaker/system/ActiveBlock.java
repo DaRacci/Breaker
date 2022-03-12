@@ -26,12 +26,21 @@ public class ActiveBlock {
 	}
 
 	private void run(Task task) {
+		if (info.getPlayer() == null || !info.getPlayer().get().isOnline()) {
+			forceAbort();
+			return;
+		}
 		Breaker.get().getBreakingSystem().sendBreakAnimationPacket(info, getProgress());
 		if (task.getTimesRan() == breakTime) breakBlock();
 	}
 
 	private int getProgress() {
 		return (int) Math.floor(((double) (task.getTimesRan() + 1) / (double) breakTime) * 10);
+	}
+
+	private void forceAbort() {
+		task.close();
+		Schedulers.sync().run(() -> Breaker.get().getBreakingSystem().sendBreakAnimationPacket(info, 10));
 	}
 
 	public void abort() {
