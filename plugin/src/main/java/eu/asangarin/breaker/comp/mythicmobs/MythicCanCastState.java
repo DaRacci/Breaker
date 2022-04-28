@@ -1,10 +1,10 @@
 package eu.asangarin.breaker.comp.mythicmobs;
 
 import eu.asangarin.breaker.api.BreakerState;
+import io.lumine.mythic.api.skills.Skill;
+import io.lumine.mythic.api.skills.SkillMetadata;
+import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.utils.config.LineConfig;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.skills.Skill;
-import io.lumine.xikage.mythicmobs.skills.SkillMetadata;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -23,7 +23,7 @@ public class MythicCanCastState extends BreakerState {
 	protected boolean setup(LineConfig config) {
 		String s = config.getString("skill");
 		if (s == null) return error("'mmcast' is missing the key arg!");
-		Optional<Skill> optionalSkill = MythicMobs.inst().getSkillManager().getSkill(s);
+		Optional<Skill> optionalSkill = MythicBukkit.inst().getSkillManager().getSkill(s);
 		if (optionalSkill.isPresent()) skill = optionalSkill.get();
 		else return error("'mmcast' state couldn't add skill. '" + skill + "' is not valid!");
 		return true;

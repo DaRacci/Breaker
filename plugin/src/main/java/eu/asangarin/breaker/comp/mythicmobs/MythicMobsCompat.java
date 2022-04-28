@@ -1,15 +1,16 @@
 package eu.asangarin.breaker.comp.mythicmobs;
 
 import eu.asangarin.breaker.Breaker;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.adapters.AbstractEntity;
-import io.lumine.xikage.mythicmobs.adapters.AbstractLocation;
-import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
-import io.lumine.xikage.mythicmobs.mobs.GenericCaster;
-import io.lumine.xikage.mythicmobs.skills.Skill;
-import io.lumine.xikage.mythicmobs.skills.SkillCaster;
-import io.lumine.xikage.mythicmobs.skills.SkillMetadata;
-import io.lumine.xikage.mythicmobs.skills.SkillTrigger;
+import io.lumine.mythic.api.adapters.AbstractEntity;
+import io.lumine.mythic.api.adapters.AbstractLocation;
+import io.lumine.mythic.api.mobs.GenericCaster;
+import io.lumine.mythic.api.skills.Skill;
+import io.lumine.mythic.api.skills.SkillCaster;
+import io.lumine.mythic.api.skills.SkillMetadata;
+import io.lumine.mythic.bukkit.BukkitAdapter;
+import io.lumine.mythic.bukkit.MythicBukkit;
+import io.lumine.mythic.core.skills.SkillMetadataImpl;
+import io.lumine.mythic.core.skills.SkillTriggers;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 public class MythicMobsCompat {
 	public static void castSkill(Player player, Location location, String skill) {
-		Optional<Skill> optionalSkill = MythicMobs.inst().getSkillManager().getSkill(skill);
+		Optional<Skill> optionalSkill = MythicBukkit.inst().getSkillManager().getSkill(skill);
 		if (optionalSkill.isPresent()) {
 			Skill s = optionalSkill.get();
 			SkillMetadata meta = createMeta(player, location.add(0.5, 0.5, 0.5));
@@ -38,6 +39,6 @@ public class MythicMobsCompat {
 		HashSet<AbstractLocation> targetLocations = new HashSet<>();
 		targetLocations.add(loc);
 
-		return new SkillMetadata(SkillTrigger.API, caster, trigger, loc, targetEntities, targetLocations, 1);
+		return new SkillMetadataImpl(SkillTriggers.API, caster, trigger, loc, targetEntities, targetLocations, 1);
 	}
 }

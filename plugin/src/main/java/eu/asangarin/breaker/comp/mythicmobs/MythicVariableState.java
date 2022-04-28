@@ -1,10 +1,10 @@
 package eu.asangarin.breaker.comp.mythicmobs;
 
 import eu.asangarin.breaker.api.BreakerState;
+import io.lumine.mythic.api.adapters.AbstractPlayer;
+import io.lumine.mythic.bukkit.BukkitAdapter;
+import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.utils.config.LineConfig;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.adapters.AbstractPlayer;
-import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -16,7 +16,7 @@ public class MythicVariableState extends BreakerState {
 	@Override
 	public boolean isConditionMet(Player breaker, Block block) {
 		AbstractPlayer player = BukkitAdapter.adapt(breaker);
-		int value = MythicMobs.inst().getPlayerManager().getPlayerData(player).getVariables().getInt(key);
+		int value = MythicBukkit.inst().getPlayerManager().getPlayerData(player).getVariables().getInt(key);
 
 		return higherThan ? value >= varValue : value == varValue;
 	}
