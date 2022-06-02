@@ -2,9 +2,16 @@ package eu.asangarin.breaker.system;
 
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.api.BreakerState;
+import eu.asangarin.breaker.comp.mythicmobs.MythicMobsCompat;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
 import eu.asangarin.breaker.util.BlockFile;
 import eu.asangarin.breaker.util.TriggerType;
+import io.lumine.mythic.api.skills.Skill;
+import io.lumine.mythic.api.skills.SkillMetadata;
+import io.lumine.mythic.bukkit.BukkitAdapter;
+import io.lumine.mythic.bukkit.MythicBukkit;
+import io.lumine.mythic.core.skills.variables.VariableRegistry;
+import io.lumine.mythic.core.skills.variables.VariableScope;
 import io.lumine.mythic.utils.config.LineConfig;
 import io.lumine.mythic.utils.config.properties.Property;
 import lombok.Getter;
@@ -22,10 +29,26 @@ public class DatabaseBlock {
 	private final List<BreakerState> states = new ArrayList<>();
 	private final Map<TriggerType, List<BreakerTrigger.TriggerTrigger>> triggers = BreakerTrigger.newTriggerMap();
 
+	private final String mythicSkill, mythicVariable;
+	private final VariableScope mythicScope;
+
 	public DatabaseBlock(BlockFile file) {
 		this.max = Property.Int(file, "hardness.max", 40).get();
 		this.min = Property.Int(file, "hardness.min", 20).get();
 		this.base = Property.Int(file, "hardness.base", max).get();
+
+		this.mythicSkill = Property.String(file, "hardness.mythic.skill", "").get();
+		this.mythicVariable = Property.String(file, "hardness.mythic.variable", "").get();
+
+		String strScope = Property.String(file, "hardness.mythic.scope", VariableScope.SKILL.toString()).get();
+		VariableScope scope;
+		try {
+			scope = VariableScope.valueOf(strScope.toUpperCase());
+		} catch (IllegalArgumentException ex) {
+			scope = VariableScope.SKILL;
+		}
+		this.mythicScope = scope;
+
 		for (String conf : Property.StringList(file, "states").get())
 			Breaker.get().getBreakerStates().fromConfig(file.get().substring(7), conf).ifPresent(states::add);
 		for (String conf : Property.StringList(file, "triggers").get())
@@ -44,8 +67,20 @@ public class DatabaseBlock {
 		if (player == null || block == null) return -1;
 
 		int breakTime = base;
-		for (BreakerState state : states)
-			if (state.isConditionMet(player, block)) breakTime -= state.getDeduction();
+		if (mythicSkill.isEmpty() || mythicVariable.isEmpty()) {
+			for (BreakerState state : states)
+				if (state.isConditionMet(player, block)) breakTime -= state.getDeduction();
+		} else {
+			Optional<Skill> optionalSkill = MythicBukkit.inst().getSkillManager().getSkill(mythicSkill);
+			if (optionalSkill.isPresent()) {
+				SkillMetadata meta = MythicMobsCompat.createMeta(player, block.getLocation().add(0.5, 0.5, 0.5));
+				optionalSkill.get().execute(meta);
+			} else {
+				Breaker.error("Tried running a MythicMobs skill, but '" + mythicSkill + "' is not a valid skill!");
+			}
+			final VariableRegistry registry = MythicBukkit.inst().getVariableManager().getRegistry(mythicScope, BukkitAdapter.adapt(player));
+			breakTime = registry.getInt(mythicVariable);
+		}
 
 		return Math.min(max, Math.max(min, breakTime));
 	}
