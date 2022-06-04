@@ -36,9 +36,11 @@ public class BreakerRules {
 	}
 
 	public boolean test(BlockDigPacketInfo info) {
-		Player player = info.getPlayer().get();
+		return test(info.getPlayer().get(), info.getBlock());
+	}
+
+	public boolean test(Player player, Block block) {
 		if (player == null) return false;
-		Block block = info.getBlock();
 
 		if (permissionRuleEnabled && !player.hasPermission("breaker.use")) return false;
 

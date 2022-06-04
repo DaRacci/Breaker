@@ -119,7 +119,8 @@ public class BreakingSystem implements Listener {
 	private void blockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		// If the player is creative or block broken isn't supposed to be handled by breaker then just return.
-		if (player.getGameMode() == GameMode.CREATIVE || !isBreakerBlock(event.getBlock())) return;
+		if (player.getGameMode() == GameMode.CREATIVE || !isBreakerBlock(event.getBlock()) || !Breaker.get().getRules()
+				.test(event.getPlayer(), event.getBlock())) return;
 		Location loc = event.getBlock().getLocation();
 
 		/* Check if the block was handled properly then just return
