@@ -109,5 +109,12 @@
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>eu.asangarin</groupId>
+            <artifactId>breaker-v1_19</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>
