@@ -1,8 +1,8 @@
-package eu.asangarin.breaker.states.mythiclib;
+package eu.asangarin.breaker.states.nbt;
 
 import eu.asangarin.breaker.api.BreakerState;
-import io.lumine.mythic.lib.api.item.NBTItem;
-import io.lumine.mythic.utils.config.LineConfig;
+import eu.asangarin.breaker.util.NBTUtil;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -12,8 +12,8 @@ public class NBTStringState extends BreakerState {
 
 	@Override
 	public boolean isConditionMet(Player breaker, Block block) {
-		NBTItem nbt = NBTItem.get(breaker.getInventory().getItemInMainHand());
-		return nbt.getString(key).equals(nbtValue);
+		String value = NBTUtil.getStringValue(key, breaker.getInventory().getItemInMainHand());
+		return value.equals(nbtValue);
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package eu.asangarin.breaker;
 
 import eu.asangarin.breaker.system.DatabaseBlock;
 import eu.asangarin.breaker.util.BlockFile;
-import io.lumine.mythic.utils.config.properties.Property;
+import io.lumine.mythic.bukkit.utils.config.properties.Property;
 import org.bukkit.block.Block;
 
 import java.io.File;

@@ -5,7 +5,7 @@ import eu.asangarin.breaker.api.BreakerTriggerEvent;
 import eu.asangarin.breaker.comp.mythicmobs.MythicMobsCompat;
 import eu.asangarin.breaker.util.TriggerFunction;
 import eu.asangarin.breaker.util.TriggerType;
-import io.lumine.mythic.utils.config.LineConfig;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -40,10 +40,6 @@ public class BreakerTrigger {
 		}
 		args = config.getString("skill", "");
 		if (!args.isEmpty()) {
-			if (!Breaker.get().isMmSupport()) {
-				error(name, "Found skill trigger, but MythicMobs isn't enabled!");
-				return false;
-			}
 			function = TriggerFunction.SKILL;
 			return true;
 		}

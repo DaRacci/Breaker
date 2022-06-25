@@ -7,12 +7,15 @@ import eu.asangarin.breaker.comp.mmocore.MMOExperienceState;
 import eu.asangarin.breaker.comp.mmocore.PointState;
 import eu.asangarin.breaker.comp.mmocore.ProfessionState;
 import eu.asangarin.breaker.comp.mmocore.ResourceState;
-import eu.asangarin.breaker.comp.mythicmobs.MythicCanCastState;
-import eu.asangarin.breaker.comp.mythicmobs.MythicVariableState;
+import eu.asangarin.breaker.comp.mythiclib.MMOStatState;
 import eu.asangarin.breaker.comp.techtree.TechEntryState;
 import eu.asangarin.breaker.comp.worldguard.RegionState;
 
 public class ExternalCompat {
+	public static void loadMythicLib() {
+		BreakerAPI.registerState("mmostat", MMOStatState.class);
+	}
+
 	public static void loadMMOCore() {
 		BreakerAPI.registerState("mmoexp", MMOExperienceState.class);
 		BreakerAPI.registerState("mmoattribute", AttributeState.class);
@@ -20,11 +23,6 @@ public class ExternalCompat {
 		BreakerAPI.registerState("mmopoint", PointState.class);
 		BreakerAPI.registerState("mmoprof", ProfessionState.class);
 		BreakerAPI.registerState("mmoresource", ResourceState.class);
-	}
-
-	public static void loadMythicMobs() {
-		BreakerAPI.registerState("mmvar", MythicVariableState.class);
-		BreakerAPI.registerState("mmcast", MythicCanCastState.class);
 	}
 
 	public static void loadTechTree() {

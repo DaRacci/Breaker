@@ -4,7 +4,7 @@ import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
 import eu.asangarin.breaker.util.TriggerType;
 import eu.asangarin.packkit.Packkit;
-import io.lumine.mythic.utils.Schedulers;
+import io.lumine.mythic.bukkit.utils.Schedulers;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;

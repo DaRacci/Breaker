@@ -1,8 +1,8 @@
-package eu.asangarin.breaker.states.mythiclib;
+package eu.asangarin.breaker.comp.mythiclib;
 
 import eu.asangarin.breaker.api.BreakerState;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import io.lumine.mythic.lib.api.player.MMOPlayerData;
-import io.lumine.mythic.utils.config.LineConfig;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 

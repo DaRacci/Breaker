@@ -2,6 +2,8 @@ package eu.asangarin.breaker.registry;
 
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.api.BreakerState;
+import eu.asangarin.breaker.comp.mythicmobs.MythicCanCastState;
+import eu.asangarin.breaker.comp.mythicmobs.MythicVariableState;
 import eu.asangarin.breaker.states.EffectState;
 import eu.asangarin.breaker.states.EnchantState;
 import eu.asangarin.breaker.states.ExperienceState;
@@ -14,11 +16,10 @@ import eu.asangarin.breaker.states.TimeState;
 import eu.asangarin.breaker.states.UnbreakableState;
 import eu.asangarin.breaker.states.WeatherState;
 import eu.asangarin.breaker.states.WorldState;
-import eu.asangarin.breaker.states.mythiclib.MMOStatState;
-import eu.asangarin.breaker.states.mythiclib.NBTBooleanState;
-import eu.asangarin.breaker.states.mythiclib.NBTStringState;
-import eu.asangarin.breaker.states.mythiclib.NBTValueState;
-import io.lumine.mythic.utils.config.LineConfig;
+import eu.asangarin.breaker.states.nbt.NBTBooleanState;
+import eu.asangarin.breaker.states.nbt.NBTStringState;
+import eu.asangarin.breaker.states.nbt.NBTValueState;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -42,8 +43,11 @@ public class BreakerStateRegistry {
 		register("world", WorldState.class);
 		register("permission", PermissionState.class);
 
-		// MythicLib
-		register("mmostat", MMOStatState.class);
+		// MythicMobs
+		register("mmvar", MythicVariableState.class);
+		register("mmcast", MythicCanCastState.class);
+
+		// NBT
 		register("nbtstr", NBTStringState.class);
 		register("nbtbool", NBTBooleanState.class);
 		register("nbtval", NBTValueState.class);

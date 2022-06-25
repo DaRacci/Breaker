@@ -1,7 +1,7 @@
 package eu.asangarin.breaker.states;
 
 import eu.asangarin.breaker.api.BreakerState;
-import io.lumine.mythic.utils.config.LineConfig;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;

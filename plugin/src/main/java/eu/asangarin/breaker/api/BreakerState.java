@@ -1,7 +1,7 @@
 package eu.asangarin.breaker.api;
 
 import eu.asangarin.breaker.Breaker;
-import io.lumine.mythic.utils.config.LineConfig;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.block.Block;

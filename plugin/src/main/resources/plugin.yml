@@ -2,8 +2,8 @@ name: Breaker
 main: eu.asangarin.breaker.Breaker
 version: ${project.version}
 api-version: 1.16
-depend: [ MythicLib ]
-softdepend: [ MMOCore, MMOItems, MythicMobs, TechTree, WorldGuard, Vault, PlaceholderAPI ]
+depend: [ MythicMobs ]
+softdepend: [ MMOCore, MMOItems, TechTree, WorldGuard, Vault, PlaceholderAPI ]
 commands:
     breaker:
         usage: /breaker

@@ -3,8 +3,8 @@ package eu.asangarin.breaker.system;
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
 import eu.asangarin.breaker.util.TriggerType;
-import io.lumine.mythic.utils.Schedulers;
-import io.lumine.mythic.utils.tasks.Task;
+import io.lumine.mythic.bukkit.utils.Schedulers;
+import io.lumine.mythic.bukkit.utils.tasks.Task;
 import lombok.Getter;
 import org.bukkit.Location;
 

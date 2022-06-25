@@ -1,7 +1,7 @@
 package eu.asangarin.breaker.comp.mmocore;
 
 import eu.asangarin.breaker.api.BreakerState;
-import io.lumine.mythic.utils.config.LineConfig;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
 import net.Indyuce.mmocore.api.player.attribute.PlayerAttribute;

@@ -4,7 +4,7 @@ import eu.asangarin.breaker.api.BreakerState;
 import io.lumine.mythic.api.adapters.AbstractPlayer;
 import io.lumine.mythic.bukkit.BukkitAdapter;
 import io.lumine.mythic.bukkit.MythicBukkit;
-import io.lumine.mythic.utils.config.LineConfig;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 

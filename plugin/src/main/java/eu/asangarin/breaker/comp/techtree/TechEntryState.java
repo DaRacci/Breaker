@@ -4,7 +4,7 @@ import eu.asangarin.breaker.api.BreakerState;
 import eu.asangarin.tt.TTPlugin;
 import eu.asangarin.tt.exceptions.EntryNotFoundException;
 import eu.asangarin.tt.player.PlayerData;
-import io.lumine.mythic.utils.config.LineConfig;
+import io.lumine.mythic.bukkit.utils.config.LineConfig;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 

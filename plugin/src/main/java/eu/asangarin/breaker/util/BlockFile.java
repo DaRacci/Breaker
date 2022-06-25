@@ -1,6 +1,6 @@
 package eu.asangarin.breaker.util;
 
-import io.lumine.mythic.utils.config.properties.PropertyScope;
+import io.lumine.mythic.bukkit.utils.config.properties.PropertyScope;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
