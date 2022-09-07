@@ -16,7 +16,7 @@ public class MythicVariableState extends BreakerState {
 	@Override
 	public boolean isConditionMet(Player breaker, Block block) {
 		AbstractPlayer player = BukkitAdapter.adapt(breaker);
-		int value = MythicBukkit.inst().getPlayerManager().getPlayerData(player).getVariables().getInt(key);
+		int value = MythicBukkit.inst().getPlayerManager().getProfile(player).getVariables().getInt(key);
 
 		return higherThan ? value >= varValue : value == varValue;
 	}

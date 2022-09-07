@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class Breaker extends LuminePlugin {
@@ -69,12 +71,27 @@ public class Breaker extends LuminePlugin {
 		reload();
 	}
 
+	private boolean PFenabled, PFwhitelist;
+	private final List<String> PFworlds = new ArrayList<>();
+
+	// TODO: refactoring
+	public boolean isPFWorld(String worldName) {
+		return PFwhitelist == PFworlds.contains(worldName);
+	}
+
 	public void reload() {
 		reloadConfiguration();
 		database.reload();
 		reloadConfig();
 		FileConfiguration config = getConfig();
+		//noinspection ConstantConditions
 		rules.setup(config.getConfigurationSection("breaker-rules"));
+
+		// TODO: Create a proper configuration object
+		PFenabled = config.getBoolean("permanent-fatigue.enabled");
+		PFworlds.clear();
+		PFworlds.addAll(config.getStringList("permanent-fatigue.worlds"));
+		PFwhitelist = config.getBoolean("permanent-fatigue.whitelist");
 	}
 
 	@Override

@@ -8,12 +8,17 @@ import io.lumine.mythic.bukkit.utils.Schedulers;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityPotionEffectEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -77,8 +82,7 @@ public class BreakingSystem implements Listener {
 			int breakTime = block.calculateBreakTime(info);
 			if (breakTime > 0) {
 				activeBlocks.put(player.getUniqueId(), new ActiveBlock(info, block, breakTime));
-				Schedulers.sync().run(() -> player.addPotionEffect(
-						new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, -1, false, false, false)));
+				Schedulers.sync().run(() -> addEffect(player));
 			} else {
 				excludedLocations.add(info.getLocation());
 				Schedulers.sync().run(() -> {
@@ -111,8 +115,22 @@ public class BreakingSystem implements Listener {
 				activeBlocks.remove(player.getUniqueId());
 			}
 			// Remove the potion effect
-			Schedulers.sync().run(() -> player.removePotionEffect(PotionEffectType.SLOW_DIGGING));
+			Schedulers.sync().run(() -> removeEffect(player));
 		}
+	}
+
+	private void addEffect(Player player) {
+		if (player.hasPotionEffect(PotionEffectType.SLOW_DIGGING)) {
+			PotionEffect effect = player.getPotionEffect(PotionEffectType.SLOW_DIGGING);
+			if (effect.getAmplifier() == -1) return;
+			player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
+		}
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, -1, false, false, false));
+	}
+
+	private void removeEffect(Player player) {
+		if (Breaker.get().isPFenabled() && Breaker.get().isPFWorld(player.getWorld().getName())) return;
+		player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -142,6 +160,35 @@ public class BreakingSystem implements Listener {
 
 		/* If we reach this part, that means the block wasn't broken normally, so we cancel the event */
 		event.setCancelled(true);
+	}
+
+	@EventHandler
+	private void worldChange(PlayerChangedWorldEvent event) {
+		handlePermanentPotionEffect(event.getPlayer(), event.getPlayer().getWorld());
+	}
+
+	@EventHandler
+	private void onSpawn(PlayerJoinEvent event) {
+		handlePermanentPotionEffect(event.getPlayer(), event.getPlayer().getWorld());
+	}
+
+	@EventHandler
+	private void respawn(PlayerRespawnEvent event) {
+		handlePermanentPotionEffect(event.getPlayer(), event.getRespawnLocation().getWorld());
+	}
+
+	private void handlePermanentPotionEffect(Player player, World world) {
+		if (!Breaker.get().isPFenabled()) return;
+
+		if (Breaker.get().isPFWorld(world.getName())) addEffect(player);
+		else removeEffect(player);
+	}
+
+	@EventHandler
+	private void potionEffect(EntityPotionEffectEvent event) {
+		if (event.getAction() == EntityPotionEffectEvent.Action.ADDED || event.getAction() == EntityPotionEffectEvent.Action.CHANGED) return;
+
+		if (event.getModifiedType() == PotionEffectType.SLOW_DIGGING && event.getOldEffect().getAmplifier() == -1) event.setCancelled(true);
 	}
 
 	// Checks if the block is supposed to be handled by Breaker

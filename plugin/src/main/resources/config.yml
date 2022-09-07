@@ -10,6 +10,19 @@
 # Do not modify unless you know what you're doing.
 config-version: 1
 
+# Enabling this setting, will grant permanent mining fatigue
+# to players in the whitelisted worlds.
+permanent-fatigue:
+    # Whether or not to enable this feature
+    enabled: false
+    # A list of worlds in which the permanent mining fatigue will be applied
+    # THIS IS CASE SENSITIVE!
+    worlds:
+        - "world"
+        - "someotherworld"
+    # Set this to false if you wish to use a blacklist instead of a whitelist
+    whitelist: false
+
 # Rules allow you to modify when the Breaker system
 # should run. You can specify certain permissions,
 # worlds or regions that are needed for Breaker
@@ -24,14 +37,14 @@ breaker-rules:
         whitelist: true # The type of list to use =
         # true: breaker will only work in the listed worlds
         # false: breaker won't work in the listed worlds
-        list: # A list of worlds.
+        list: # A list of worlds. !! CASE SENSITIVE !!
             - "world"
             - "world_nether"
             - "world_the_end"
     region:
         enabled: false
         whitelist: true # Works exactly like the world whitelist
-        list: # A list of worlds.
+        list: # A list of regions. !! CASE SENSITIVE !!
             - "ACoolTestRegion"
             - "ILoveAria"
 
