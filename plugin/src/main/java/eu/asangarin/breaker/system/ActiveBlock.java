@@ -30,7 +30,7 @@ public class ActiveBlock {
 			forceAbort();
 			return;
 		}
-		Breaker.get().getBreakingSystem().sendBreakAnimationPacket(info, getProgress());
+		Schedulers.sync().run(() -> Breaker.get().getBreakingSystem().sendBreakAnimationPacket(info, getProgress()));
 		if (task.getTimesRan() == breakTime) breakBlock();
 	}
 

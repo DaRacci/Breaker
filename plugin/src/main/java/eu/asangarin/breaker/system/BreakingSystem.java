@@ -2,6 +2,7 @@ package eu.asangarin.breaker.system;
 
 import eu.asangarin.breaker.Breaker;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
+import eu.asangarin.breaker.util.BreakerSettings;
 import eu.asangarin.breaker.util.TriggerType;
 import eu.asangarin.packkit.Packkit;
 import io.lumine.mythic.bukkit.utils.Schedulers;
@@ -129,7 +130,7 @@ public class BreakingSystem implements Listener {
 	}
 
 	private void removeEffect(Player player) {
-		if (Breaker.get().isPFenabled() && Breaker.get().isPFWorld(player.getWorld().getName())) return;
+		if (BreakerSettings.get().getFatigue().test(player.getWorld().getName())) return;
 		player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
 	}
 
@@ -137,7 +138,7 @@ public class BreakingSystem implements Listener {
 	private void blockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		// If the player is creative or block broken isn't supposed to be handled by breaker then just return.
-		if (player.getGameMode() == GameMode.CREATIVE || !isBreakerBlock(event.getBlock()) || !Breaker.get().getRules()
+		if (player.getGameMode() == GameMode.CREATIVE || !isBreakerBlock(event.getBlock()) || !BreakerSettings.get().getRules()
 				.test(event.getPlayer(), event.getBlock())) return;
 		Location loc = event.getBlock().getLocation();
 
@@ -178,9 +179,9 @@ public class BreakingSystem implements Listener {
 	}
 
 	private void handlePermanentPotionEffect(Player player, World world) {
-		if (!Breaker.get().isPFenabled()) return;
+		if (!BreakerSettings.get().getFatigue().isEnabled()) return;
 
-		if (Breaker.get().isPFWorld(world.getName())) addEffect(player);
+		if (BreakerSettings.get().getFatigue().testWorld(world.getName())) addEffect(player);
 		else removeEffect(player);
 	}
 
@@ -197,7 +198,7 @@ public class BreakingSystem implements Listener {
 	}
 
 	private boolean isExcluded(BlockDigPacketInfo info) {
-		return !Breaker.get().getRules().test(info) || isExcluded(info.getBlock());
+		return !BreakerSettings.get().getRules().test(info) || isExcluded(info.getBlock());
 	}
 
 	// Checks if the block is of a special excluded block type
@@ -206,6 +207,7 @@ public class BreakingSystem implements Listener {
 	}
 
 	public void sendBreakAnimationPacket(BlockDigPacketInfo info, int stage) {
+		if(stage == 0 && BreakerSettings.get().getSecret().isIgnoreZeroPackets()) return;
 		Player player = info.getPlayer().get();
 		if (player == null) return;
 		Packkit packkit = Breaker.get().getPackkit();

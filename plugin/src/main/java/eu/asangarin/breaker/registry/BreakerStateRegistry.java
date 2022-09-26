@@ -10,6 +10,7 @@ import eu.asangarin.breaker.states.ExperienceState;
 import eu.asangarin.breaker.states.HeldItemState;
 import eu.asangarin.breaker.states.InAirState;
 import eu.asangarin.breaker.states.InWaterState;
+import eu.asangarin.breaker.states.NestedStates;
 import eu.asangarin.breaker.states.PermissionState;
 import eu.asangarin.breaker.states.SneakingState;
 import eu.asangarin.breaker.states.TimeState;
@@ -30,6 +31,8 @@ public class BreakerStateRegistry {
 	private final Map<String, Class<? extends BreakerState>> states = new HashMap<>();
 
 	public BreakerStateRegistry() {
+		register("states", NestedStates.class);
+
 		register("effect", EffectState.class);
 		register("enchant", EnchantState.class);
 		register("exp", ExperienceState.class);

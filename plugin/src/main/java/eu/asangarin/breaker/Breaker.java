@@ -8,21 +8,18 @@ import eu.asangarin.breaker.network.BreakerNetworkHandler;
 import eu.asangarin.breaker.registry.BlockProviderRegistry;
 import eu.asangarin.breaker.registry.BreakerStateRegistry;
 import eu.asangarin.breaker.system.BreakingSystem;
-import eu.asangarin.breaker.util.BreakerRules;
+import eu.asangarin.breaker.util.BreakerSettings;
 import eu.asangarin.breaker.util.Metrics;
 import eu.asangarin.packkit.Packkit;
 import io.lumine.mythic.bukkit.utils.plugin.LuminePlugin;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 public class Breaker extends LuminePlugin {
@@ -30,7 +27,7 @@ public class Breaker extends LuminePlugin {
 	private final Packkit packkit = new Packkit(new BreakerNetworkHandler());
 	private final BreakingSystem breakingSystem = new BreakingSystem();
 	private final Database database = new Database();
-	private final BreakerRules rules = new BreakerRules();
+	private final BreakerSettings settings = new BreakerSettings();
 
 	private final BlockProviderRegistry blockProviders = new BlockProviderRegistry();
 	private final BreakerStateRegistry breakerStates = new BreakerStateRegistry();
@@ -71,27 +68,11 @@ public class Breaker extends LuminePlugin {
 		reload();
 	}
 
-	private boolean PFenabled, PFwhitelist;
-	private final List<String> PFworlds = new ArrayList<>();
-
-	// TODO: refactoring
-	public boolean isPFWorld(String worldName) {
-		return PFwhitelist == PFworlds.contains(worldName);
-	}
-
 	public void reload() {
 		reloadConfiguration();
 		database.reload();
 		reloadConfig();
-		FileConfiguration config = getConfig();
-		//noinspection ConstantConditions
-		rules.setup(config.getConfigurationSection("breaker-rules"));
-
-		// TODO: Create a proper configuration object
-		PFenabled = config.getBoolean("permanent-fatigue.enabled");
-		PFworlds.clear();
-		PFworlds.addAll(config.getStringList("permanent-fatigue.worlds"));
-		PFwhitelist = config.getBoolean("permanent-fatigue.whitelist");
+		settings.setup(getConfig());
 	}
 
 	@Override

@@ -8,7 +8,7 @@
 # https://asangarin.github.io/Breaker-Docs/html/index.html
 
 # Do not modify unless you know what you're doing.
-config-version: 1
+config-version: 2
 
 # Enabling this setting, will grant permanent mining fatigue
 # to players in the whitelisted worlds.
@@ -48,3 +48,5 @@ breaker-rules:
             - "ACoolTestRegion"
             - "ILoveAria"
 
+super-secret-settings:
+    ignore-zero-packets: true

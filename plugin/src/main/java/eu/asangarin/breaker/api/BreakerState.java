@@ -14,7 +14,8 @@ public abstract class BreakerState {
 	@Getter
 	protected boolean required = false;
 
-	public int getDeduction() {
+	@SuppressWarnings("unused")
+	public int getDeduction(Player breaker, Block block) {
 		return value;
 	}
 
