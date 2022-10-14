@@ -2,6 +2,7 @@ package eu.asangarin.breaker;
 
 import eu.asangarin.breaker.cmd.BreakerCommand;
 import eu.asangarin.breaker.comp.ExternalCompat;
+import eu.asangarin.breaker.comp.crucible.CrucibleBlockProvider;
 import eu.asangarin.breaker.comp.mmoitems.MIBlockProvider;
 import eu.asangarin.breaker.comp.vault.VaultCompat;
 import eu.asangarin.breaker.network.BreakerNetworkHandler;
@@ -56,16 +57,21 @@ public class Breaker extends LuminePlugin {
 		// Cross-plugin compat
 		wgSupport = getServer().getPluginManager().isPluginEnabled("WorldGuard");
 
-		if (getServer().getPluginManager().isPluginEnabled("MythicLib")) ExternalCompat.loadMythicLib();
-		if (getServer().getPluginManager().isPluginEnabled("MMOCore")) ExternalCompat.loadMMOCore();
-		if (getServer().getPluginManager().isPluginEnabled("TechTree")) ExternalCompat.loadTechTree();
-		if (getServer().getPluginManager().isPluginEnabled("Vault")) VaultCompat.setup();
+		loadCompat("MythicLib", ExternalCompat::loadMythicLib);
+		loadCompat("MMOCore", ExternalCompat::loadMMOCore);
+		loadCompat("TechTree", ExternalCompat::loadTechTree);
+		loadCompat("Vault", VaultCompat::setup);
 		if (wgSupport) ExternalCompat.loadWorldGuard();
-		if (getServer().getPluginManager().isPluginEnabled("MMOItems")) blockProviders.register(new MIBlockProvider());
+		loadCompat("MMOItems", () -> blockProviders.register(new MIBlockProvider()));
+		loadCompat("MythicCrucible", () -> blockProviders.register(new CrucibleBlockProvider()));
 
 		// Initialize breaking system
 		breakingSystem.load();
 		reload();
+	}
+
+	private void loadCompat(String pl, Runnable method) {
+		if (getServer().getPluginManager().isPluginEnabled(pl)) method.run();
 	}
 
 	public void reload() {
