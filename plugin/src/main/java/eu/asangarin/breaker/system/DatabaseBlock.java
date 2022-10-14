@@ -16,7 +16,6 @@ import io.lumine.mythic.bukkit.utils.config.properties.Property;
 import io.lumine.mythic.core.skills.variables.VariableRegistry;
 import io.lumine.mythic.core.skills.variables.VariableScope;
 import lombok.Getter;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -79,38 +78,50 @@ public class DatabaseBlock {
 		if (player == null || block == null) return -1;
 
 		int breakTime = base;
+		System.out.println("Start Break Time: " + breakTime);
+		System.out.println("Tool: " + tools + " - Efficiency: " + efficiency + " - Haste: " + haste + " - Water: " + water + " - Air: " + air);
 		if (mythicSkill.isEmpty() || mythicVariable.isEmpty()) {
 			for (BreakerState state : states)
 				if (state.isConditionMet(player, block)) breakTime -= state.getDeduction(player, block);
+			System.out.println("After State Break Time: " + breakTime);
 
 			double multiplier = 1;
 			ItemStack hand = player.getInventory().getItemInMainHand();
-			if(tools && block.isPreferredTool(hand)) {
+			if (tools && block.isPreferredTool(hand)) {
+				System.out.println("TOOL: " + hand.getType() + " | BLOCK: " + block.getType());
 				multiplier = ToolCalc.getToolMultiplier(hand.getType(), block.getType());
+				System.out.println("Tool Multiplier: " + multiplier);
 
-				if(efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED))
+				if (efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED))
 					multiplier += hand.getEnchantments().get(Enchantment.DIG_SPEED) ^ 2 + 1;
+
+				System.out.println("Post-Enchant Multiplier: " + multiplier);
 			}
 
-			if(!tools && efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED))
+			if (!tools && efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED))
 				multiplier += hand.getEnchantments().get(Enchantment.DIG_SPEED) ^ 2 + 1;
 
-			if(haste && player.hasPotionEffect(PotionEffectType.FAST_DIGGING))
+			if (haste && player.hasPotionEffect(PotionEffectType.FAST_DIGGING))
 				multiplier *= 0.2 * player.getPotionEffect(PotionEffectType.FAST_DIGGING).getAmplifier() + 1;
+			System.out.println("Post-Effect Multiplier: " + multiplier);
 
-			if(water && player.isInWater() && !hand.getEnchantments().containsKey(Enchantment.WATER_WORKER))
-				multiplier /= 5;
+			if (water && player.isInWater() && !hand.getEnchantments().containsKey(Enchantment.WATER_WORKER)) multiplier /= 5;
+			System.out.println("Post-Water Multiplier: " + multiplier);
 
-			if(air && !player.isOnGround())
-				multiplier /= 5;
+			if (air && !player.isOnGround()) multiplier /= 5;
+			System.out.println("Post-Water Multiplier: " + multiplier);
 
-			double damage = multiplier / (double) breakTime;
+			double newBreakTime = (((double) breakTime / 20) * 1.5);
+			double damage = multiplier / newBreakTime;
+			System.out.println("Break Time Calc: " + breakTime + " | " + newBreakTime);
+			System.out.println("Damage Calculation: " + damage + " ( " + multiplier + " | " + newBreakTime + ")");
 
-			if(tools && block.isPreferredTool(hand))
-				damage /= 30;
+			if (tools && block.isPreferredTool(hand)) damage /= 30;
 			else damage /= 100;
+			System.out.println("Post Damage: " + damage);
 
 			breakTime = (damage > 1) ? 1 : (int) Math.ceil(1 / damage);
+			System.out.println("After Vanilla Break Time: " + breakTime);
 		} else {
 			Optional<Skill> optionalSkill = MythicBukkit.inst().getSkillManager().getSkill(mythicSkill);
 			if (optionalSkill.isPresent()) {
