@@ -9,11 +9,13 @@ hardness: # These values are in ticks!
   max: 30 # The maximum amount of ticks it should take to break the block
 
 use-modifiers:
-  tools: false # Whether vanilla tool modifiers should be used (For example, using a Diamond Pick on a Cobblestone block)
-  efficiency: true # Whether the efficiency enchantment should be considered
-  haste: true # Whether the haste effect should be considered
-  water: true # Whether being in water should affect breaking speed (like in Vanilla)
-  air: true # Whether being in the air should affect breaking speed (like in Vanilla)
+  vanilla: # THIS IS CURRENTLY VERY BUGGY! USE AT OWN RISK
+    enabled: false # Whether to use any of these modifiers.
+    tools: false # Whether vanilla tool modifiers should be used (For example, using a Diamond Pick on a Cobblestone block)
+    efficiency: true # Whether the efficiency enchantment should be considered
+    haste: true # Whether the haste effect should be considered
+    water: true # Whether being in water should affect breaking speed (like in Vanilla)
+    air: true # Whether being in the air should affect breaking speed (like in Vanilla)
 
 states: # Please refer to "States" in the docs.
   - helditem{type=diamond_pickaxe;value=5} # Will subtract 5 ticks from the breaking time.
@@ -23,7 +25,9 @@ states: # Please refer to "States" in the docs.
   # the base value is 20 and the helditem state subtracts 5 ticks and the sneaking state subtracts 10 ticks.
   # '20 - 5 - 10 = 5' (Note, the minimum is also set to 5, so it can't go lower than that)
   - helditem{type=iron_pickaxe} # Will use the default "value" of '1'
-  - states{s=[- helditem{type=iron_pickaxe} - sneaking{}];value=50}
+
+  # WIP - This hasn't been properly implemeneted yet
+  #- states{s=[- helditem{type=iron_pickaxe} - sneaking{}];value=50}
 
 triggers: # Please refer to "Triggers" in the docs.
   - break{command=say I broke a block!}
