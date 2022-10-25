@@ -74,6 +74,7 @@ public class DatabaseBlock {
 		return Optional.empty();
 	}
 
+	@SuppressWarnings("resource")
 	public int calculateBreakTime(BlockDigPacketInfo info) {
 		Player player = info.getPlayer().get();
 		Block block = info.getBlock();
@@ -108,6 +109,7 @@ public class DatabaseBlock {
 				if (water && player.isInWater() && !hand.getEnchantments().containsKey(Enchantment.WATER_WORKER)) multiplier /= 5;
 				//System.out.println("Post-Water Multiplier: " + multiplier);
 
+				//noinspection deprecation
 				if (air && !player.isOnGround()) multiplier /= 5;
 				//System.out.println("Post-Water Multiplier: " + multiplier);
 
