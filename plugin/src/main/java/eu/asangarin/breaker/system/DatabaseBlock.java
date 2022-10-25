@@ -30,7 +30,7 @@ import java.util.Optional;
 @Getter
 public class DatabaseBlock {
 	private final int min, max, base;
-	private final boolean tools, efficiency, haste, water, air;
+	private final boolean vanillaEnabled, tools, efficiency, haste, water, air;
 	private final List<BreakerState> states = new ArrayList<>();
 	private final Map<TriggerType, List<BreakerTrigger.TriggerTrigger>> triggers = BreakerTrigger.newTriggerMap();
 
@@ -42,11 +42,12 @@ public class DatabaseBlock {
 		this.min = Property.Int(file, "hardness.min", 20).get();
 		this.base = Property.Int(file, "hardness.base", max).get();
 
-		this.tools = Property.Boolean(file, "use-modifiers.tools", false).get();
-		this.efficiency = Property.Boolean(file, "use-modifiers.efficiency", false).get();
-		this.haste = Property.Boolean(file, "use-modifiers.haste", false).get();
-		this.water = Property.Boolean(file, "use-modifiers.water", false).get();
-		this.air = Property.Boolean(file, "use-modifiers.air", false).get();
+		this.vanillaEnabled = Property.Boolean(file, "use-modifiers.vanilla.enabled", false).get();
+		this.tools = Property.Boolean(file, "use-modifiers.vanilla.tools", false).get();
+		this.efficiency = Property.Boolean(file, "use-modifiers.vanilla.efficiency", false).get();
+		this.haste = Property.Boolean(file, "use-modifiers.vanilla.haste", false).get();
+		this.water = Property.Boolean(file, "use-modifiers.vanilla.water", false).get();
+		this.air = Property.Boolean(file, "use-modifiers.vanilla.air", false).get();
 
 		this.mythicSkill = Property.String(file, "hardness.mythic.skill", "").get();
 		this.mythicVariable = Property.String(file, "hardness.mythic.variable", "").get();
@@ -78,50 +79,49 @@ public class DatabaseBlock {
 		if (player == null || block == null) return -1;
 
 		int breakTime = base;
-		System.out.println("Start Break Time: " + breakTime);
-		System.out.println("Tool: " + tools + " - Efficiency: " + efficiency + " - Haste: " + haste + " - Water: " + water + " - Air: " + air);
+		//System.out.println("Start Break Time: " + breakTime);
+		//System.out.println("Tool: " + tools + " - Efficiency: " + efficiency + " - Haste: " + haste + " - Water: " + water + " - Air: " + air);
 		if (mythicSkill.isEmpty() || mythicVariable.isEmpty()) {
 			for (BreakerState state : states)
 				if (state.isConditionMet(player, block)) breakTime -= state.getDeduction(player, block);
-			System.out.println("After State Break Time: " + breakTime);
+			//System.out.println("After State Break Time: " + breakTime);
 
-			double multiplier = 1;
-			ItemStack hand = player.getInventory().getItemInMainHand();
-			if (tools && block.isPreferredTool(hand)) {
-				System.out.println("TOOL: " + hand.getType() + " | BLOCK: " + block.getType());
-				multiplier = ToolCalc.getToolMultiplier(hand.getType(), block.getType());
-				System.out.println("Tool Multiplier: " + multiplier);
+			if(vanillaEnabled) {
+				double multiplier = 1;
+				ItemStack hand = player.getInventory().getItemInMainHand();
+				if (tools && block.isPreferredTool(hand)) {
+					//System.out.println("TOOL: " + hand.getType() + " | BLOCK: " + block.getType());
+					multiplier = ToolCalc.getToolMultiplier(hand.getType(), block.getType());
+					//System.out.println("Tool Multiplier: " + multiplier);
 
-				if (efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED))
-					multiplier += hand.getEnchantments().get(Enchantment.DIG_SPEED) ^ 2 + 1;
+					if (efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED)) multiplier += hand.getEnchantments().get(Enchantment.DIG_SPEED) ^ 2 + 1;
 
-				System.out.println("Post-Enchant Multiplier: " + multiplier);
+					//System.out.println("Post-Enchant Multiplier: " + multiplier);
+				}
+
+				if (!tools && efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED)) multiplier += hand.getEnchantments().get(Enchantment.DIG_SPEED) ^ 2 + 1;
+
+				if (haste && player.hasPotionEffect(PotionEffectType.FAST_DIGGING)) multiplier *= 0.2 * player.getPotionEffect(PotionEffectType.FAST_DIGGING).getAmplifier() + 1;
+				//System.out.println("Post-Effect Multiplier: " + multiplier);
+
+				if (water && player.isInWater() && !hand.getEnchantments().containsKey(Enchantment.WATER_WORKER)) multiplier /= 5;
+				//System.out.println("Post-Water Multiplier: " + multiplier);
+
+				if (air && !player.isOnGround()) multiplier /= 5;
+				//System.out.println("Post-Water Multiplier: " + multiplier);
+
+				double newBreakTime = (((double) breakTime / 20) * 1.5);
+				double damage = multiplier / newBreakTime;
+				//System.out.println("Break Time Calc: " + breakTime + " | " + newBreakTime);
+				//System.out.println("Damage Calculation: " + damage + " ( " + multiplier + " | " + newBreakTime + ")");
+
+				if (tools && block.isPreferredTool(hand)) damage /= 30;
+				else damage /= 100;
+				//System.out.println("Post Damage: " + damage);
+
+				breakTime = (damage > 1) ? 1 : (int) Math.ceil(1 / damage);
+				//System.out.println("After Vanilla Break Time: " + breakTime);
 			}
-
-			if (!tools && efficiency && hand.getEnchantments().containsKey(Enchantment.DIG_SPEED))
-				multiplier += hand.getEnchantments().get(Enchantment.DIG_SPEED) ^ 2 + 1;
-
-			if (haste && player.hasPotionEffect(PotionEffectType.FAST_DIGGING))
-				multiplier *= 0.2 * player.getPotionEffect(PotionEffectType.FAST_DIGGING).getAmplifier() + 1;
-			System.out.println("Post-Effect Multiplier: " + multiplier);
-
-			if (water && player.isInWater() && !hand.getEnchantments().containsKey(Enchantment.WATER_WORKER)) multiplier /= 5;
-			System.out.println("Post-Water Multiplier: " + multiplier);
-
-			if (air && !player.isOnGround()) multiplier /= 5;
-			System.out.println("Post-Water Multiplier: " + multiplier);
-
-			double newBreakTime = (((double) breakTime / 20) * 1.5);
-			double damage = multiplier / newBreakTime;
-			System.out.println("Break Time Calc: " + breakTime + " | " + newBreakTime);
-			System.out.println("Damage Calculation: " + damage + " ( " + multiplier + " | " + newBreakTime + ")");
-
-			if (tools && block.isPreferredTool(hand)) damage /= 30;
-			else damage /= 100;
-			System.out.println("Post Damage: " + damage);
-
-			breakTime = (damage > 1) ? 1 : (int) Math.ceil(1 / damage);
-			System.out.println("After Vanilla Break Time: " + breakTime);
 		} else {
 			Optional<Skill> optionalSkill = MythicBukkit.inst().getSkillManager().getSkill(mythicSkill);
 			if (optionalSkill.isPresent()) {
