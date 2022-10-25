@@ -10,6 +10,9 @@
 # Do not modify unless you know what you're doing.
 config-version: 2
 
+# Enable if you want to use WIP features
+unstable-mode: false
+
 # Enabling this setting, will grant permanent mining fatigue
 # to players in the whitelisted worlds.
 permanent-fatigue:
@@ -47,6 +50,3 @@ breaker-rules:
         list: # A list of regions. !! CASE SENSITIVE !!
             - "ACoolTestRegion"
             - "ILoveAria"
-
-super-secret-settings:
-    ignore-zero-packets: true

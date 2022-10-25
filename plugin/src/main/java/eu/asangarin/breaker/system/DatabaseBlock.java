@@ -5,6 +5,7 @@ import eu.asangarin.breaker.api.BreakerState;
 import eu.asangarin.breaker.comp.mythicmobs.MythicMobsCompat;
 import eu.asangarin.breaker.network.BlockDigPacketInfo;
 import eu.asangarin.breaker.util.BlockFile;
+import eu.asangarin.breaker.util.BreakerSettings;
 import eu.asangarin.breaker.util.ToolCalc;
 import eu.asangarin.breaker.util.TriggerType;
 import io.lumine.mythic.api.skills.Skill;
@@ -86,7 +87,7 @@ public class DatabaseBlock {
 				if (state.isConditionMet(player, block)) breakTime -= state.getDeduction(player, block);
 			//System.out.println("After State Break Time: " + breakTime);
 
-			if(vanillaEnabled) {
+			if(BreakerSettings.get().isUnstable() && vanillaEnabled) {
 				double multiplier = 1;
 				ItemStack hand = player.getInventory().getItemInMainHand();
 				if (tools && block.isPreferredTool(hand)) {

@@ -13,11 +13,13 @@ import java.util.List;
 
 @Getter
 public class BreakerSettings {
+	private boolean unstable;
 	private final BreakerRules rules = new BreakerRules();
 	private final PermanentFatigue fatigue = new PermanentFatigue();
 	private final SuperSecretSettings secret = new SuperSecretSettings();
 
 	public void setup(ConfigurationSection config) {
+		unstable = config.getBoolean("unstable-mode", false);
 		rules.setup(config.getConfigurationSection("breaker-rules"));
 		fatigue.setup(config.getConfigurationSection("permanent-fatigue"));
 		if (config.contains("super-secret-settings")) secret.setup(config.getConfigurationSection("super-secret-settings"));
