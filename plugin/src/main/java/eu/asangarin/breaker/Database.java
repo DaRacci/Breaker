@@ -15,7 +15,14 @@ public class Database {
 
 	public void reload() {
 		Breaker.log("Loading Breaker Database...");
-		blockConfigs.clear();
+		blockConfigs.replaceAll((key, value) -> {
+			if (value.isProvided()) {
+				System.out.println("Keeping provided block: " + key);
+				return value;
+			} else return null;
+		});
+
+		System.out.println(blockConfigs);
 
 		File files = new File(Breaker.get().getDataFolder(), "blocks");
 		if (!files.isDirectory()) return;
@@ -36,11 +43,19 @@ public class Database {
 		}
 	}
 
+	public void put(String key, DatabaseBlock value) {
+		blockConfigs.put(key.toLowerCase(), value);
+	}
+
 	public Optional<DatabaseBlock> fromBlock(Block block) {
 		List<String> keys = Breaker.get().getBlockProviders().getKeysFromBlock(block);
 		for (String key : keys)
 			if (blockConfigs.containsKey(key.toLowerCase())) return Optional.of(blockConfigs.get(key.toLowerCase()));
 		return Optional.empty();
+	}
+
+	public Optional<DatabaseBlock> fromKey(String key) {
+		return Optional.ofNullable(blockConfigs.get(key.toLowerCase()));
 	}
 
 	public boolean shouldBlockBeHandled(Block block) {

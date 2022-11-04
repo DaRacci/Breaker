@@ -36,12 +36,16 @@ public class Breaker extends LuminePlugin {
 	private boolean wgSupport;
 
 	@Override
-	public void enable() {
+	public void load() {
 		// Initialize singleton
 		plugin = this;
 		handleDefaultFiles();
 		new Metrics(5790);
 
+	}
+
+	@Override
+	public void enable() {
 		// Register Breaker Command
 		registerCommand("breaker", new BreakerCommand());
 
