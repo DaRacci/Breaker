@@ -10,6 +10,7 @@ import eu.asangarin.breaker.states.ExperienceState;
 import eu.asangarin.breaker.states.HeldItemState;
 import eu.asangarin.breaker.states.InAirState;
 import eu.asangarin.breaker.states.InWaterState;
+import eu.asangarin.breaker.states.ConditionalState;
 import eu.asangarin.breaker.states.NestedStates;
 import eu.asangarin.breaker.states.PermissionState;
 import eu.asangarin.breaker.states.SneakingState;
@@ -33,6 +34,7 @@ public class BreakerStateRegistry {
 
 	public BreakerStateRegistry() {
 		register("states", NestedStates.class);
+		register("conditional", ConditionalState.class);
 
 		register("effect", EffectState.class);
 		register("enchant", EnchantState.class);
@@ -71,7 +73,7 @@ public class BreakerStateRegistry {
 			BreakerState state = states.get(config.getKey()).getDeclaredConstructor().newInstance();
 
 			//TODO Implement
-			if(!BreakerSettings.get().isUnstable() && state instanceof NestedStates) {
+			if(!BreakerSettings.get().isUnstable() && state instanceof ConditionalState) {
 				Breaker.error("[" + filename + "] Couldn't add state: '" + config.getKey() + "' - Unstable Mode is not enabled!");
 				return Optional.empty();
 			}

@@ -11,15 +11,11 @@ public class BreakerAPI {
 	}
 
 	public static void registerBlock(Material material, Consumer<MutableDatabaseBlock> mutator) {
-		System.out.println("Registering block " + material);
-
 		final var block = Breaker.get().getDatabase().fromKey(material.name())
 			.map(MutableDatabaseBlock::from)
 			.orElseGet(MutableDatabaseBlock::new);
 
 		mutator.accept(block);
-
-		System.out.println("Registering block " + material + " with " + block);
 
 		Breaker.get().getDatabase().put(material.name(), block.toImmutable());
 	}

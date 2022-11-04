@@ -17,12 +17,9 @@ public class Database {
 		Breaker.log("Loading Breaker Database...");
 		blockConfigs.replaceAll((key, value) -> {
 			if (value.isProvided()) {
-				System.out.println("Keeping provided block: " + key);
 				return value;
 			} else return null;
 		});
-
-		System.out.println(blockConfigs);
 
 		File files = new File(Breaker.get().getDataFolder(), "blocks");
 		if (!files.isDirectory()) return;
